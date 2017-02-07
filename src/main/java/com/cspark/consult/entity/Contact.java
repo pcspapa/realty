@@ -30,6 +30,13 @@ public class Contact {
 
     private String company;
 
+    public Contact() {
+    }
+
+    public Contact(Long id) {
+        this.id = id;
+    }
+
     public Contact(String name, String mobile, String company) {
         this.name = name;
         this.mobile = mobile;

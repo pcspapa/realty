@@ -9,7 +9,7 @@
 package com.cspark.consult.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by cspark on 2017. 2. 7..
@@ -31,6 +31,16 @@ public class Building {
 
     private Integer groundFloor;
 
+    @ElementCollection
+    @CollectionTable(
+            name = "BUILDING_CONTACT",
+            joinColumns = @JoinColumn(name = "BUILDING_ID")
+    )
+    private Set<BuildingContact> buildingContacts = new HashSet<>();
+
+
+    public Building() {
+    }
 
     public Building(Address address) {
         this.address = address;
@@ -66,6 +76,18 @@ public class Building {
 
     public void setGroundFloor(Integer groundFloor) {
         this.groundFloor = groundFloor;
+    }
+
+    public Set<BuildingContact> getBuildingContacts() {
+        return buildingContacts;
+    }
+
+    public void setBuildingContacts(Set<BuildingContact> buildingContacts) {
+        this.buildingContacts = buildingContacts;
+    }
+
+    public void addBuildingContact(BuildingContact buildingContact) {
+        buildingContacts.add(buildingContact);
     }
 
     @Override

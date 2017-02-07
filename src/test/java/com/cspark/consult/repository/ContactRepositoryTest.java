@@ -17,6 +17,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * Created by cspark on 2017. 2. 7..
  */
@@ -43,5 +46,12 @@ public class ContactRepositoryTest {
         Contact otherContact = new Contact("박찬석", "010-8890-3804", "국회도서관");
         contactRepository.save(someContact);
         contactRepository.save(otherContact);
+    }
+
+    @Test
+    public void findContact() {
+        Contact contact = contactRepository.findOne(1L);
+
+        assertThat(contact.getCompany(), is("google"));
     }
 }
