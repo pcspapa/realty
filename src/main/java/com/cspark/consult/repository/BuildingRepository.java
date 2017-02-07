@@ -9,11 +9,12 @@
 package com.cspark.consult.repository;
 
 import com.cspark.consult.entity.Building;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  * Created by cspark on 2017. 2. 7..
  */
-public interface BuildingRepository extends CrudRepository<Building, Long> {
+public interface BuildingRepository extends JpaRepository<Building, Long> {
 
 }

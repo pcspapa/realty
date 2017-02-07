@@ -18,7 +18,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -41,22 +44,80 @@ public class BuildingRepositoryTest {
     }
 
     @Test
-    public void saveBuilding() throws Exception {
+    public void insertBuilding() {
         buildingRepository.save(someBuilding);
     }
 
     @Test(expected = DataIntegrityViolationException.class)
-    public void saveEqualsBuildingThrowException() {
+    public void insertBuilding_EqualsBuildingThrowException() {
         Building otherBuliding = new Building(new Address("12345", "서울시 강서구 방화대로34길 62", "서울시", "마곡경남아너스빌"));
         buildingRepository.save(someBuilding);
         buildingRepository.save(otherBuliding);
     }
 
     @Test
-    public void addContact() throws Exception {
+    public void addContact() {
         Building building = buildingRepository.findOne(1L);
-        building.addBuildingContact(new BuildingContact(new Contact(1L), "건물주"));
+        building.addBuildingContact(new BuildingContact(new Contact(3L), "건물주"));
 
-        assertThat(building.getBuildingContacts().size(), is(1));
+        assertThat(building.getBuildingContacts().size(), is(2));
     }
+
+    @Test
+    public void findBuilding() {
+        Building building = buildingRepository.findOne(1L);
+
+        assertThat(building.getAddress().getBuildingName(), is("국회도서관"));
+    }
+
+    @Test
+    public void fineBuildings() {
+        List<Building> buildings = buildingRepository.findAll();
+
+        assertThat(buildings.size(), is(2));
+        assertThat(buildings.get(0).getBuildingContacts().size(), is(2));
+        assertThat(buildings.get(1).getBuildingContacts().size(), is(1));
+    }
+
+    @Test
+    public void updateBuilding() {
+        Building before = buildingRepository.findOne(1L);
+        before.setBasementFloor(100);
+        buildingRepository.save(before);
+
+        Building after = buildingRepository.findOne(1L);
+
+        assertThat(after.getBasementFloor(), is(100));
+    }
+
+    @Test
+    public void updateBuildingContact() {
+        Building before = buildingRepository.findOne(1L);
+
+        before.getBuildingContacts()
+                .stream()
+                .filter(bc -> bc.getDirector().equals("건물주"))
+                .forEach(bc -> bc.setDirector("관리실"));
+
+        Building after = buildingRepository.findOne(1L);
+
+        assertThat(
+                after.getBuildingContacts()
+                        .stream()
+                        .filter(bc -> bc.getDirector().equals("건물주"))
+                        .count(), is(0L)
+        );
+    }
+
+    @Test
+    public void deleteBuildingContact() {
+        Building before = buildingRepository.findOne(1L);
+        BuildingContact bc = before.getBuildingContacts().iterator().next();
+        before.getBuildingContacts().remove(bc);
+
+        Building after = buildingRepository.findOne(1L);
+
+        assertThat(after.getBuildingContacts().size(), is(1));
+    }
+
 }

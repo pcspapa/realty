@@ -9,10 +9,10 @@
 package com.cspark.consult.repository;
 
 import com.cspark.consult.entity.Contact;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by cspark on 2017. 2. 7..
  */
-public interface ContactRepository extends CrudRepository<Contact, Long> {
+public interface ContactRepository extends JpaRepository<Contact, Long> {
 }

@@ -57,12 +57,11 @@ public class BuildingContact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BuildingContact that = (BuildingContact) o;
-        return Objects.equals(contact, that.contact) &&
-                Objects.equals(director, that.director);
+        return Objects.equals(director, that.director);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(contact, director);
+        return Objects.hash(director);
     }
 }

@@ -15,9 +15,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -54,4 +60,31 @@ public class ContactRepositoryTest {
 
         assertThat(contact.getCompany(), is("google"));
     }
+
+    @Test
+    public void findContacts() {
+        List<Contact> contacts = contactRepository.findAll();
+
+        assertThat(contacts.size(), is(3));
+    }
+
+    @Test
+    public void updateContact() {
+        Contact before = contactRepository.findOne(1L);
+        before.setCompany("gooogle");
+
+        Contact after = contactRepository.findOne(1L);
+
+        assertThat(after.getCompany(), is("gooogle"));
+    }
+
+//    @Test
+//    public void deleteContact() {
+//        Contact before = contactRepository.findOne(1L);
+//        contactRepository.delete(before);
+//
+//        Contact after = contactRepository.findOne(1L);
+//
+//        assertThat(after, is(nullValue()));
+//    }
 }

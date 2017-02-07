@@ -8,6 +8,8 @@
 
 package com.cspark.consult.entity;
 
+import org.springframework.core.annotation.Order;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -36,6 +38,7 @@ public class Building {
             name = "BUILDING_CONTACT",
             joinColumns = @JoinColumn(name = "BUILDING_ID")
     )
+    @OrderBy("director")
     private Set<BuildingContact> buildingContacts = new HashSet<>();
 
 

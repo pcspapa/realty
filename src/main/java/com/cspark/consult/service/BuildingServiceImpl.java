@@ -15,6 +15,8 @@ import com.cspark.consult.repository.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by cspark on 2017. 2. 7..
  */
@@ -35,6 +37,21 @@ public class BuildingServiceImpl implements BuildingService {
         building.addBuildingContact(new BuildingContact(new Contact(contactId), director));
 
         return building;
+    }
+
+    @Override
+    public Building findOne(long buildingId) {
+        return buildingRepository.findOne(buildingId);
+    }
+
+    @Override
+    public List<Building> findAll() {
+        return buildingRepository.findAll();
+    }
+
+    @Override
+    public Building rebuild(Building building) {
+        return buildingRepository.save(building);
     }
 
 }

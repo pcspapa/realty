@@ -9,8 +9,10 @@
 package com.cspark.consult.service;
 
 import com.cspark.consult.entity.Building;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.List;
+
 
 /**
  * Created by cspark on 2017. 2. 7..
@@ -22,4 +24,13 @@ public interface BuildingService {
 
     @Transactional
     Building addContact(Long buildingId, Long contactId, String director);
+
+    @Transactional(readOnly = true)
+    Building findOne(long buildingId);
+
+    @Transactional(readOnly = true)
+    List<Building> findAll();
+
+    @Transactional
+    Building rebuild(Building building);
 }
