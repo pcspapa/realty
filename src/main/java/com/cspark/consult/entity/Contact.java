@@ -15,25 +15,25 @@ import java.util.Objects;
  * Created by cspark on 2017. 2. 7..
  */
 @Entity
-@Table(name = "BUILDING", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"zipcode", "street", "city", "buildingName"})
+@Table(name = "CONTACT", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "mobile"})
 })
-public class Building {
+public class Contact {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Embedded
-    private Address address;
+    private String name;
 
-    private Integer basementFloor;
+    private String mobile;
 
-    private Integer groundFloor;
+    private String company;
 
-
-    public Building(Address address) {
-        this.address = address;
+    public Contact(String name, String mobile, String company) {
+        this.name = name;
+        this.mobile = mobile;
+        this.company = company;
     }
 
     public Long getId() {
@@ -44,40 +44,41 @@ public class Building {
         this.id = id;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getBasementFloor() {
-        return basementFloor;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setBasementFloor(Integer basementFloor) {
-        this.basementFloor = basementFloor;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public Integer getGroundFloor() {
-        return groundFloor;
+    public String getCompany() {
+        return company;
     }
 
-    public void setGroundFloor(Integer groundFloor) {
-        this.groundFloor = groundFloor;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Building building = (Building) o;
-        return Objects.equals(address, building.address);
+        Contact contact = (Contact) o;
+        return Objects.equals(name, contact.name) &&
+                Objects.equals(mobile, contact.mobile);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address);
+        return Objects.hash(name, mobile);
     }
 }

@@ -16,26 +16,23 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by cspark on 2017. 2. 7..
  */
-public class BuildingTest {
+public class ContactTest {
 
-    private Building someBuilding;
+    private Contact someContact;
 
     @Before
-    public void setUp() {
-        someBuilding = new Building(new Address("12345", "서울시 강서구 방화대로34길 62", "서울시", "마곡경남아너스빌"));
+    public void setUp() throws Exception {
+        someContact = new Contact("박찬석", "010-8890-3804", "프리랜서");
     }
 
     @Test
-    public void createBuilding() {
-        someBuilding.setBasementFloor(5);
-        someBuilding.setGroundFloor(23);
+    public void create() {
     }
 
     @Test
-    public void equalsBuilding() {
-        Building otherBuliding = new Building(new Address("12345", "서울시 강서구 방화대로34길 62", "서울시", "마곡경남아너스빌"));
+    public void equalsContact() {
+        Contact otherContact = new Contact("박찬석", "010-8890-3804", "국회도서관");
 
-        assertTrue(someBuilding.equals(otherBuliding));
+        assertTrue(someContact.equals(otherContact));
     }
-
 }

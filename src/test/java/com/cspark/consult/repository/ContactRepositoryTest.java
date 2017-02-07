@@ -8,8 +8,7 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.Address;
-import com.cspark.consult.entity.Building;
+import com.cspark.consult.entity.Contact;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,27 +22,26 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class BuildingRepositoryTest {
+public class ContactRepositoryTest {
 
     @Autowired
-    private BuildingRepository buildingRepository;
-
-    private Building someBuilding;
+    private ContactRepository contactRepository;
+    private Contact someContact;
 
     @Before
-    public void setUp() {
-        someBuilding = new Building(new Address("12345", "서울시 강서구 방화대로34길 62", "서울시", "마곡경남아너스빌"));
+    public void setUp() throws Exception {
+        someContact = new Contact("박찬석", "010-8890-3804", "프리랜서");
     }
 
     @Test
-    public void saveBuilding() throws Exception {
-        buildingRepository.save(someBuilding);
+    public void saveContact() {
+        contactRepository.save(someContact);
     }
 
     @Test(expected = DataIntegrityViolationException.class)
-    public void saveEqualsBuildingThrowException() {
-        Building otherBuliding = new Building(new Address("12345", "서울시 강서구 방화대로34길 62", "서울시", "마곡경남아너스빌"));
-        buildingRepository.save(someBuilding);
-        buildingRepository.save(otherBuliding);
+    public void saveEqualsContactThrowException() {
+        Contact otherContact = new Contact("박찬석", "010-8890-3804", "국회도서관");
+        contactRepository.save(someContact);
+        contactRepository.save(otherContact);
     }
 }
