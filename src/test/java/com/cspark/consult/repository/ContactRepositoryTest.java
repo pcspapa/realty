@@ -35,7 +35,7 @@ public class ContactRepositoryTest {
     private Contact someContact;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         someContact = new Contact("박찬석", "010-8890-3804", "프리랜서");
     }
 
@@ -79,6 +79,7 @@ public class ContactRepositoryTest {
     public void deleteContactWithoutBuildingContact() {
         Contact before = contactRepository.findOne(4L);
         contactRepository.delete(before);
+        contactRepository.flush();
 
         Contact after = contactRepository.findOne(4L);
 

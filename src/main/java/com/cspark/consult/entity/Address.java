@@ -82,4 +82,15 @@ public class Address {
     public int hashCode() {
         return Objects.hash(zipcode, street, city, buildingName);
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Address{");
+        sb.append("zipcode='").append(zipcode).append('\'');
+        sb.append(", street='").append(street).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", buildingName='").append(buildingName).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

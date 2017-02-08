@@ -8,8 +8,6 @@
 
 package com.cspark.consult.entity;
 
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -40,13 +38,19 @@ public class Building {
             name = "BUILDING_CONTACT",
             joinColumns = @JoinColumn(name = "BUILDING_ID"),
             foreignKey = @ForeignKey(name="FK_BUILDING_ID")
-
     )
     @OrderBy("director")
     private Set<BuildingContact> buildingContacts = new HashSet<>();
 
+    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
+    private Set<Office> offices = new HashSet<>();
+
 
     public Building() {
+    }
+
+    public Building(Long id) {
+        this.id = id;
     }
 
     public Building(Address address) {
@@ -97,6 +101,19 @@ public class Building {
         buildingContacts.add(buildingContact);
     }
 
+    public Set<Office> getOffices() {
+        return offices;
+    }
+
+    public void setOffices(Set<Office> offices) {
+        this.offices = offices;
+    }
+
+    public void addOffice(Office office) {
+        office.setBuilding(this);
+        offices.add(office);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,4 +126,18 @@ public class Building {
     public int hashCode() {
         return Objects.hash(address);
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Building{");
+        sb.append("id=").append(id);
+        sb.append(", address=").append(address);
+        sb.append(", basementFloor=").append(basementFloor);
+        sb.append(", groundFloor=").append(groundFloor);
+        sb.append(", buildingContacts=").append(buildingContacts);
+        sb.append(", offices=").append(offices);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }
