@@ -8,17 +8,19 @@
 
 package com.cspark.consult.entity;
 
-import org.springframework.core.annotation.Order;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created by cspark on 2017. 2. 7..
  */
 @Entity
 @Table(name = "BUILDING", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"zipcode", "street", "city", "buildingName"})
+        @UniqueConstraint(name = "UIX_BUILDING_ADDRESS", columnNames = {"zipcode", "street", "city", "buildingName"})
 })
 public class Building {
 
@@ -36,7 +38,9 @@ public class Building {
     @ElementCollection
     @CollectionTable(
             name = "BUILDING_CONTACT",
-            joinColumns = @JoinColumn(name = "BUILDING_ID")
+            joinColumns = @JoinColumn(name = "BUILDING_ID"),
+            foreignKey = @ForeignKey(name="FK_BUILDING_ID")
+
     )
     @OrderBy("director")
     private Set<BuildingContact> buildingContacts = new HashSet<>();

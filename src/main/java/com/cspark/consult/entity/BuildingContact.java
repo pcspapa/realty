@@ -9,6 +9,7 @@
 package com.cspark.consult.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
@@ -22,7 +23,8 @@ public class BuildingContact {
     @ManyToOne
     @JoinColumn(
             name = "CONTACT_ID",
-            nullable = false, updatable = false
+            nullable = false, updatable = false,
+            foreignKey = @ForeignKey(name="FK_CONTACT_ID")
     )
     private Contact contact;
 

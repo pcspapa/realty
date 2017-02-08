@@ -4,6 +4,7 @@ insert into building(id, building_name, city, street, zipcode, basement_floor, g
 insert into contact(id, company, mobile, name) values(1, 'google', '010-1234-5678', '구글');
 insert into contact(id, company, mobile, name) values(2, 'facebook', '010-2345-6789', '페이스북');
 insert into contact(id, company, mobile, name) values(3, 'twitter', '010-3456-7890', '트위터');
+insert into contact(id, company, mobile, name) values(4, 'daum', '010-4567-8901', '다음');
 
 
 insert into building_contact(building_id, contact_id, director) values(1, 1, '건물주');

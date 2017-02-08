@@ -15,11 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -65,7 +62,7 @@ public class ContactRepositoryTest {
     public void findContacts() {
         List<Contact> contacts = contactRepository.findAll();
 
-        assertThat(contacts.size(), is(3));
+        assertThat(contacts.size(), is(4));
     }
 
     @Test
@@ -78,13 +75,26 @@ public class ContactRepositoryTest {
         assertThat(after.getCompany(), is("gooogle"));
     }
 
-//    @Test
-//    public void deleteContact() {
-//        Contact before = contactRepository.findOne(1L);
-//        contactRepository.delete(before);
-//
-//        Contact after = contactRepository.findOne(1L);
-//
-//        assertThat(after, is(nullValue()));
-//    }
+    @Test
+    public void deleteContactWithoutBuildingContact() {
+        Contact before = contactRepository.findOne(4L);
+        contactRepository.delete(before);
+
+        Contact after = contactRepository.findOne(4L);
+
+        assertThat(after, is(nullValue()));
+    }
+
+    /**
+     * TODO : Rollback(false)으로 설정 시 Failed.
+     */
+    @Test
+    public void deleteContactWithBuildingContact() {
+        Contact before = contactRepository.findOne(1L);
+        contactRepository.delete(before);
+
+        Contact after = contactRepository.findOne(1L);
+
+        assertThat(after, is(nullValue()));
+    }
 }

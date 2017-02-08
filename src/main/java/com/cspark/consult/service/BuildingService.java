@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by cspark on 2017. 2. 7..
  */
+@Transactional(readOnly = true)
 public interface BuildingService {
 
     @Transactional
@@ -25,10 +26,8 @@ public interface BuildingService {
     @Transactional
     Building addContact(Long buildingId, Long contactId, String director);
 
-    @Transactional(readOnly = true)
-    Building findOne(long buildingId);
+    Building findOne(long id);
 
-    @Transactional(readOnly = true)
     List<Building> findAll();
 
     @Transactional

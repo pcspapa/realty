@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "CONTACT", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"name", "mobile"})
+        @UniqueConstraint(name = "UIX_CONTACT_NAME_MOBILE", columnNames = {"name", "mobile"})
 })
 public class Contact {
 
