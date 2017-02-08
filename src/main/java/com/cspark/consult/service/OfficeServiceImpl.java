@@ -8,8 +8,9 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Contact;
-import com.cspark.consult.repository.ContactRepository;
+import com.cspark.consult.entity.Building;
+import com.cspark.consult.entity.Office;
+import com.cspark.consult.repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,29 +20,29 @@ import java.util.List;
  * Created by cspark on 2017. 2. 8..
  */
 @Service
-public class ContactServiceImpl implements ContactService {
+public class OfficeServiceImpl implements OfficeService {
 
     @Autowired
-    private ContactRepository contactRepository;
+    private OfficeRepository officeRepository;
 
     @Override
-    public void contact(Contact contact) {
-        contactRepository.save(contact);
+    public Office build(long buildingId, Office office) {
+        office.setBuilding(new Building(buildingId));
+        return officeRepository.save(office);
     }
 
     @Override
-    public Contact findOne(long id) {
-        return contactRepository.findOne(id);
+    public Office findOne(Long id) {
+        return officeRepository.findOne(id);
     }
 
     @Override
-    public List<Contact> findAll() {
-        return contactRepository.findAll();
+    public List<Office> findAll() {
+        return officeRepository.findAll();
     }
 
     @Override
-    public Contact recontact(Contact contact) {
-        return contactRepository.save(contact);
+    public Office rebuild(Office office) {
+        return officeRepository.save(office);
     }
-
 }

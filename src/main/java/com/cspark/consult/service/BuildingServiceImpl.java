@@ -32,7 +32,7 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public Building addContact(Long buildingId, Long contactId, String director) {
+    public Building addContact(long buildingId, long contactId, String director) {
         Building building = buildingRepository.findOne(buildingId);
         building.addBuildingContact(new BuildingContact(new Contact(contactId), director));
 

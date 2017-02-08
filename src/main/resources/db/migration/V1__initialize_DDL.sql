@@ -65,3 +65,5 @@ insert into building_contact(building_id, contact_id, director) values(1, 2, '�
 insert into building_contact(building_id, contact_id, director) values(2, 3, '건물주');
 
 insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(1, 1, '임대', '사무실', 1,  null, '전체');
+insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(2, 1, '임대', '사무실', 2,  null, '전체');
+insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(3, 1, '임대', '사무실', 3,  null, '전체');

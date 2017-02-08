@@ -8,28 +8,25 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Building;
+import com.cspark.consult.entity.Office;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 /**
- * Created by cspark on 2017. 2. 7..
+ * Created by cspark on 2017. 2. 8..
  */
 @Transactional(readOnly = true)
-public interface BuildingService {
+public interface OfficeService {
 
     @Transactional
-    Building build(Building building);
+    Office build(long buildingId, Office office);
+
+    Office findOne(Long id);
+
+    List<Office> findAll();
 
     @Transactional
-    Building addContact(long buildingId, long contactId, String director);
+    Office rebuild(Office someOffice);
 
-    Building findOne(long id);
-
-    List<Building> findAll();
-
-    @Transactional
-    Building rebuild(Building building);
 }

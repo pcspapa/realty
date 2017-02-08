@@ -42,7 +42,7 @@ public class Building {
     @OrderBy("director")
     private Set<BuildingContact> buildingContacts = new HashSet<>();
 
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Office> offices = new HashSet<>();
 
 

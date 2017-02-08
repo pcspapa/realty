@@ -22,7 +22,7 @@ public interface ContactService {
     @Transactional
     void contact(Contact contact);
 
-    Contact findOne(Long id);
+    Contact findOne(long id);
 
     List<Contact> findAll();
 

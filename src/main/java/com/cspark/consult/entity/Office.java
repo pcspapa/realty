@@ -43,13 +43,13 @@ public class Office {
     public Office() {
     }
 
-    public Office(Item item, TargetFloor targetFloor) {
+    public Office(Long id, Item item, TargetFloor targetFloor) {
+        this.id = id;
         this.item = item;
         this.targetFloor = targetFloor;
     }
 
-    public Office(Building building, Item item, TargetFloor targetFloor) {
-        this.building = building;
+    public Office(Item item, TargetFloor targetFloor) {
         this.item = item;
         this.targetFloor = targetFloor;
     }

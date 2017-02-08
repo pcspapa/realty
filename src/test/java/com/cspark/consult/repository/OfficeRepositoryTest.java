@@ -42,7 +42,7 @@ public class OfficeRepositoryTest {
     }
 
     @Test
-    public void addOffice() {
+    public void findBuilding_addOffice() {
         Building building = buildingRepository.findOne(1L);
         building.addOffice(someOffice);
         buildingRepository.flush();
