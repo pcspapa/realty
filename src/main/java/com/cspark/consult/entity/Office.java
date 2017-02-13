@@ -194,7 +194,9 @@ public class Office {
     public String toString() {
         final StringBuffer sb = new StringBuffer("Office{");
         sb.append("id=").append(id);
-        sb.append(", building_id=").append(building.getId());
+        if (building != null)
+            sb.append(", building_id=").append(building.getId());
+        sb.append(", consultings=").append(consultings);
         sb.append(", item=").append(item);
         sb.append(", targetFloor=").append(targetFloor);
         sb.append('}');

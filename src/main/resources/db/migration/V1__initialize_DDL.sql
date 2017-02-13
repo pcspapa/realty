@@ -63,7 +63,8 @@ create table proposal (
 create table consulting (
     proposal_id bigint not null,
     office_id bigint not null,
-    primary key (office_id, proposal_id)
+    state varchar(255),
+    primary key (proposal_id, office_id)
 );
 
 alter table consulting add constraint FK_OFFICE_ID foreign key (office_id) references office;
@@ -86,12 +87,17 @@ insert into building_contact(building_id, contact_id, director) values(2, 3, '�
 insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(1, 1, '임대', '사무실', 1,  null, '전체');
 insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(2, 1, '임대', '사무실', 2,  null, '전체');
 insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(3, 1, '임대', '사무실', 3,  null, '전체');
+insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(4, 1, '임대', '사무실', 4,  null, '전체');
 
 insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(1, 1, '사무실', '임대', 100, 110);
 insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(2, 2, '사무실', '임대', 110, 120);
 insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(3, 3, '사무실', '임대', 120, 130);
+insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(4, 4, '사무실', '임대', 130, 140);
 
 
-insert into consulting(proposal_id, office_id) values(1, 1);
-insert into consulting(proposal_id, office_id) values(1, 2);
-insert into consulting(proposal_id, office_id) values(1, 3);
+insert into consulting(proposal_id, office_id, state) values(1, 1, '진행');
+insert into consulting(proposal_id, office_id, state) values(1, 2, '완결');
+insert into consulting(proposal_id, office_id, state) values(1, 3, '진행');
+
+insert into consulting(proposal_id, office_id, state) values(2, 1, '진행');
+insert into consulting(proposal_id, office_id, state) values(3, 1, '진행');

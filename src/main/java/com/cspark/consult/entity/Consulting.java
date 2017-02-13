@@ -10,6 +10,7 @@ package com.cspark.consult.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by cspark on 2017. 2. 13..
@@ -18,7 +19,7 @@ import java.io.Serializable;
 public class Consulting {
 
     @EmbeddedId
-    private Id id;
+    private Id id = new Id();
 
     @ManyToOne
     @JoinColumn(name = "PROPOSAL_ID", foreignKey = @ForeignKey(name = "FK_PROPOSAL_ID"), insertable = false, updatable = false)
@@ -28,9 +29,23 @@ public class Consulting {
     @JoinColumn(name = "OFFICE_ID", foreignKey = @ForeignKey(name = "FK_OFFICE_ID"), insertable = false, updatable = false)
     private Office office;
 
+    private String state;
+
+    public Consulting() {
+    }
+
     public Consulting(Proposal proposal, Office office) {
+        // Set fields
         this.proposal = proposal;
         this.office = office;
+
+        // Set identifier values
+        this.id.proposalId = proposal.getId();
+        this.id.officeId = office.getId();
+
+        // Guarantee referential integrity if made bidirectional
+//        proposal.getConsultings().add(this);
+//        office.getConsultings().add(this);
     }
 
     public Id getId() {
@@ -43,6 +58,40 @@ public class Consulting {
 
     public Office getOffice() {
         return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Consulting that = (Consulting) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Consulting{");
+        sb.append("id=").append(id);
+        sb.append(", state='").append(state).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     @Embeddable
@@ -73,6 +122,15 @@ public class Consulting {
 
         public int hashCode() {
             return proposalId.hashCode() + officeId.hashCode();
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("Id{");
+            sb.append("proposalId=").append(proposalId);
+            sb.append(", officeId=").append(officeId);
+            sb.append('}');
+            return sb.toString();
         }
     }
 

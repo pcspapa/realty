@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -101,10 +102,10 @@ public class OfficeRepositoryTest {
 
     @Test
     public void deleteOffice() {
-        officeRepository.delete(1L);
+        officeRepository.delete(4L);
         officeRepository.flush();
 
-        Office office = officeRepository.findOne(1L);
+        Office office = officeRepository.findOne(4L);
 
         assertThat(office, is(nullValue()));
     }
@@ -116,9 +117,10 @@ public class OfficeRepositoryTest {
     @Test
     public void createOffice_addProposal() {
         someOffice.setBuilding(new Building(1L));
-        someOffice.addProposal(new Proposal(1L));
         officeRepository.save(someOffice);
         officeRepository.flush();
+
+        someOffice.addProposal(new Proposal(1L));
 
         assertThat(someOffice.getId(), is(notNullValue()));
         assertThat(someOffice.getConsultings().size(), is(1));
@@ -126,12 +128,24 @@ public class OfficeRepositoryTest {
 
     /**
      * TODO : insert consulting 구문을 보지 못 함.
+     *
+     * 그래서 신규 Proposal을 add 할 경우 에러가 발생 안 함 (기대한 결과는 FK 에러 혹은 Proposal 을 insert)
+     * Proposal에서 addOffice도 동일함.
      */
     @Test
     public void findOffice_addProposal() {
         Office office = officeRepository.findOne(1L);
+        office.addProposal(new Proposal(4L));
+
+        assertThat(office.getConsultings().size(), is(4));
+    }
+
+
+    @Test
+    public void findOffice_duplicateProposal() {
+        Office office = officeRepository.findOne(1L);
         office.addProposal(new Proposal(1L));
 
-        assertThat(office.getConsultings().size(), is(1));
+        assertThat(office.getConsultings().size(), is(3));
     }
 }

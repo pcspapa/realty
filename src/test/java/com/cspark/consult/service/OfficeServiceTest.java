@@ -50,7 +50,7 @@ public class OfficeServiceTest {
         Building building = buildingService.findOne(1L);
         building.addOffice(someOffice);
 
-        assertThat(building.getOffices().size(), is(2));
+        assertThat(building.getOffices().size(), is(5));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class OfficeServiceTest {
     public void findAll() {
         List<Office> offices = officeService.findAll();
 
-        assertThat(offices.size(), is(3));
+        assertThat(offices.size(), is(4));
     }
 
     @Test

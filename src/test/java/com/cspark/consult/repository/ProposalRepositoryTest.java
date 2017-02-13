@@ -57,7 +57,7 @@ public class ProposalRepositoryTest {
     public void findProposals() {
         List<Proposal> proposals = proposalRepository.findAll();
 
-        assertThat(proposals.size(), is(3));
+        assertThat(proposals.size(), is(4));
     }
 
     @Test
@@ -101,8 +101,19 @@ public class ProposalRepositoryTest {
     @Test
     public void findProposal_addOffice() {
         Proposal proposal = proposalRepository.findOne(1L);
+        proposal.addOffice(new Office(4L));
+
+        proposal = proposalRepository.findOne(1L);
+
+        assertThat(proposal.getConsultings().size(), is(4));
+    }
+
+    @Test
+    public void findProposal_duplicateOffice() {
+        Proposal proposal = proposalRepository.findOne(1L);
         proposal.addOffice(new Office(1L));
 
-        assertThat(proposal.getConsultings().size(), is(1));
+        assertThat(proposal.getConsultings().size(), is(3));
     }
+
 }

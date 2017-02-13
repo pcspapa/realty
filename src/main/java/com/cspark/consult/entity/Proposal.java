@@ -106,7 +106,17 @@ public class Proposal {
         this.targetArea = targetArea;
     }
 
-
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Proposal{");
+        sb.append("id=").append(id);
+        sb.append(", contact=").append(contact);
+        sb.append(", consultings=").append(consultings);
+        sb.append(", item=").append(item);
+        sb.append(", targetArea=").append(targetArea);
+        sb.append('}');
+        return sb.toString();
+    }
 
     @Embeddable
     public static class TargetArea {
