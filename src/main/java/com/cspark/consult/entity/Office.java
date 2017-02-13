@@ -9,6 +9,8 @@
 package com.cspark.consult.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by cspark on 2017. 2. 8..
@@ -23,6 +25,9 @@ public class Office {
     @ManyToOne(optional = false)
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
+
+    @OneToMany(mappedBy = "office")
+    private Set<Consulting> consultings = new HashSet<>();
 
     @Embedded
     @AttributeOverrides({
@@ -43,13 +48,17 @@ public class Office {
     public Office() {
     }
 
-    public Office(Long id, Item item, TargetFloor targetFloor) {
+    public Office(long id) {
         this.id = id;
+    }
+
+    public Office(Item item, TargetFloor targetFloor) {
         this.item = item;
         this.targetFloor = targetFloor;
     }
 
-    public Office(Item item, TargetFloor targetFloor) {
+    public Office(Long id, Item item, TargetFloor targetFloor) {
+        this.id = id;
         this.item = item;
         this.targetFloor = targetFloor;
     }
@@ -70,6 +79,18 @@ public class Office {
         this.building = building;
     }
 
+    public Set<Consulting> getConsultings() {
+        return consultings;
+    }
+
+    public void setConsultings(Set<Consulting> consultings) {
+        this.consultings = consultings;
+    }
+
+    public void addProposal(Proposal proposal) {
+        consultings.add(new Consulting(proposal, this));
+    }
+
     public Item getItem() {
         return item;
     }
@@ -85,6 +106,7 @@ public class Office {
     public void setTargetFloor(TargetFloor targetFloor) {
         this.targetFloor = targetFloor;
     }
+
 
     @Embeddable
     public static class Item {

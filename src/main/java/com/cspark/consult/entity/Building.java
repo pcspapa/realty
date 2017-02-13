@@ -18,7 +18,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "BUILDING", uniqueConstraints = {
-        @UniqueConstraint(name = "UIX_BUILDING_ADDRESS", columnNames = {"zipcode", "street", "city", "buildingName"})
+        @UniqueConstraint(name = "UIX_BUILDING_ADDRESS", columnNames = {"address_zipcode", "address_street", "address_city", "address_building_name"})
 })
 public class Building {
 
@@ -27,6 +27,12 @@ public class Building {
     private Long id;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "zipcode", column = @Column(name = "ADDRESS_ZIPCODE")),
+            @AttributeOverride(name = "street", column = @Column(name = "ADDRESS_STREET")),
+            @AttributeOverride(name = "city", column = @Column(name = "ADDRESS_CITY")),
+            @AttributeOverride(name = "buildingName", column = @Column(name = "ADDRESS_BUILDING_NAME"))
+    })
     private Address address;
 
     private Integer basementFloor;

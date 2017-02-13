@@ -10,6 +10,7 @@ package com.cspark.consult.repository;
 
 import com.cspark.consult.entity.Building;
 import com.cspark.consult.entity.Office;
+import com.cspark.consult.entity.Proposal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +55,7 @@ public class OfficeRepositoryTest {
     }
 
     /**
-     * 저장한 gn Office 재 조회 시 Building에 대한 조회가 안 이루어짐. (flush 처리와 상관 없음.)
+     * 저장한 후 Office 재 조회 시 Building에 대한 조회가 안 이루어짐. (flush 처리와 상관 없음.)
      */
     @Test
     public void insertOffice() {
@@ -108,4 +109,29 @@ public class OfficeRepositoryTest {
         assertThat(office, is(nullValue()));
     }
 
+
+    /**
+     * TODO : insert consulting 구문을 보지 못 함.
+     */
+    @Test
+    public void createOffice_addProposal() {
+        someOffice.setBuilding(new Building(1L));
+        someOffice.addProposal(new Proposal(1L));
+        officeRepository.save(someOffice);
+        officeRepository.flush();
+
+        assertThat(someOffice.getId(), is(notNullValue()));
+        assertThat(someOffice.getConsultings().size(), is(1));
+    }
+
+    /**
+     * TODO : insert consulting 구문을 보지 못 함.
+     */
+    @Test
+    public void findOffice_addProposal() {
+        Office office = officeRepository.findOne(1L);
+        office.addProposal(new Proposal(1L));
+
+        assertThat(office.getConsultings().size(), is(1));
+    }
 }
