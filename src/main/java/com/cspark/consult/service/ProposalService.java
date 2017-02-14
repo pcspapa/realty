@@ -9,6 +9,8 @@
 package com.cspark.consult.service;
 
 import com.cspark.consult.entity.realty.Proposal;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.List;
 public interface ProposalService {
 
     List<Proposal> findAll();
+
+    Page<Proposal> findAll(Pageable pageable);
 
     Proposal findOne(long id);
 }

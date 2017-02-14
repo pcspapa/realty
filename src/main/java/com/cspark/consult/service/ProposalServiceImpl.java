@@ -11,6 +11,8 @@ package com.cspark.consult.service;
 import com.cspark.consult.entity.realty.Proposal;
 import com.cspark.consult.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,11 @@ public class ProposalServiceImpl implements ProposalService {
     @Override
     public List<Proposal> findAll() {
         return proposalRepository.findAll();
+    }
+
+    @Override
+    public Page<Proposal> findAll(Pageable pageable) {
+        return proposalRepository.findAll(pageable);
     }
 
     @Override

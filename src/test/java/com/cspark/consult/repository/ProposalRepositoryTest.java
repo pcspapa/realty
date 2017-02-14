@@ -15,13 +15,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -58,8 +59,37 @@ public class ProposalRepositoryTest {
     public void findProposals() {
         List<Proposal> proposals = proposalRepository.findAll();
 
-        assertThat(proposals.size(), is(4));
+        assertThat(proposals.size(), is(23));
     }
+
+    @Test
+    public void findPageableProposals() {
+        Page<Proposal> proposals = proposalRepository.findAll(new PageRequest(1, 10));
+
+        assertThat(proposals.getTotalElements(), is(23L));
+        assertThat(proposals.getTotalPages(), is(3));
+        assertThat(proposals.getContent().size(), is(10));
+        assertThat(proposals.getNumber(), is(1));
+        assertThat(proposals.getNumberOfElements(), is(10));
+        assertThat(proposals.getSize(), is(10));
+        assertThat(proposals.getSort(), is(nullValue()));
+    }
+
+    @Test
+    public void findPageableProposals_lastPage() {
+        Page<Proposal> proposals = proposalRepository.findAll(new PageRequest(2, 10));
+
+        assertThat(proposals.getTotalElements(), is(23L));
+        assertThat(proposals.getTotalPages(), is(3));
+        assertThat(proposals.getContent().size(), is(3));
+        assertThat(proposals.getNumber(), is(2));  // page number ( index : form 0)
+        assertThat(proposals.getNumberOfElements(), is(3));
+        assertThat(proposals.getSize(), is(10));
+        assertThat(proposals.getSort(), is(nullValue()));
+    }
+
+
+
 
     @Test
     public void findProposalAndUpdateProposal() {

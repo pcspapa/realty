@@ -20,10 +20,29 @@ insert into office (id, building_id, item_deal, item_type, floor_from, floor_to,
 insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(3, 1, '임대', '사무실', 3,  null, '전체', 5000, 500, 50);
 insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(4, 1, '임대', '사무실', 4,  null, '전체', 6000, 600, 60);
 
-insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(1, 1, '사무실', '임대', 100, 110, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(2, 2, '사무실', '임대', 110, 120, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(3, 3, '사무실', '임대', 120, 130, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
-insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(4, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 1, 1, '사무실', '임대', 100, 110, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 2, 2, '사무실', '임대', 110, 120, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 3, 3, '사무실', '임대', 120, 130, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 4, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 5, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 6, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 7, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 8, 2, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values( 9, 3, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(10, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(11, 1, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(12, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(13, 2, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(14, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(15, 3, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(16, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(17, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(18, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(19, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(20, 3, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(21, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(22, 2, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(23, 1, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 insert into consulting(proposal_id, office_id, state) values(1, 1, '진행');
 insert into consulting(proposal_id, office_id, state) values(1, 2, '완결');

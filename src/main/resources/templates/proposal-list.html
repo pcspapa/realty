@@ -78,36 +78,75 @@
         <h1>의뢰서 목록</h1>
     </div>
 
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>의뢰일자</th>
-            <th>의뢰회사</th>
-            <th>의뢰담당자</th>
-            <th>의뢰형태</th>
-            <th>의뢰평수</th>
-            <th>컨설턴트</th>
-            <th>상태</th>
-        </tr>
-        </thead>
-        <tbody th:unless="${#lists.isEmpty(proposals)}">
-        <tr th:each="proposal : ${proposals}" th:attr="data-id=${proposal.id},data-url=@{/proposals/}">
-            <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
-            <td th:text="${proposal.contact.company}">company name</td>
-            <td th:text="${proposal.contact.name}">person name</td>
-            <td th:inline="text">[[${proposal.item.type}]] / [[${proposal.item.deal}]]</td>
-            <td th:inline="text">[[${proposal.area.fromValue}]] ~ [[${proposal.area.toValue}]]</td>
-            <td>consultant</td>
-            <td th:text="${proposal.state}">state</td>
-        </tr>
-        </tbody>
-        <tbody th:if="${#lists.isEmpty(proposals)}">
-        <tr>
-            <td colspan="3">You have no proposals in your proposal list</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>의뢰일자</th>
+                <th>의뢰회사</th>
+                <th>의뢰담당자</th>
+                <th>의뢰형태</th>
+                <th>의뢰평수</th>
+                <th>컨설턴트</th>
+                <th>상태</th>
+            </tr>
+            </thead>
+            <tbody th:unless="${#lists.isEmpty(proposals)}">
+            <tr th:each="proposal : ${proposals}" th:attr="data-id=${proposal.id},data-url=@{/proposals/}">
+                <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
+                <td th:text="${proposal.contact.company}">company name</td>
+                <td th:text="${proposal.contact.name}">person name</td>
+                <td th:inline="text">[[${proposal.item.type}]] / [[${proposal.item.deal}]]</td>
+                <td th:inline="text">[[${proposal.area.fromValue}]] ~ [[${proposal.area.toValue}]]</td>
+                <td>consultant</td>
+                <td th:inline="text">
+                    [[${proposal.state}]]
+                    <span class="badge" th:text="${#lists.size(proposal.consultings)}">14</span>
+                </td>
+            </tr>
+            </tbody>
+            <tbody th:if="${#lists.isEmpty(proposals)}">
+            <tr>
+                <td colspan="3">You have no proposals in your proposal list</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:class="${proposals.number eq 0} ? 'disabled' : ''">
+                        <a th:if="${proposals.first}" href="javascript:void(0);">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        <a th:unless="${proposals.first}" th:href="@{${'/proposals'}(page=${proposals.number-1})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <li th:each="pageNo : ${#numbers.sequence(0, proposals.totalPages - 1)}" th:class="${proposals.number eq pageNo}? 'active' : ''">
+                        <a th:if="${proposals.number eq pageNo}" href="javascript:void(0);">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+                        <a th:if="${not (proposals.number eq pageNo)}" th:href="@{${'/proposals'}(page=${pageNo})}">
+                            <span th:text="${pageNo + 1}"></span>
+                        </a>
+                    </li>
+
+                    <li th:class="${proposals.number + 1 ge proposals.totalPages} ? 'disabled' : ''">
+                        <a th:if="${proposals.last}" href="javascript:void(0);">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        <a th:unless="${proposals.last}" th:href="@{${'/proposals'}(page=${proposals.number+1})}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
     <p class="text-right">
         <a class="btn btn-primary" href="./writing-proposal.html" th:href="@{/proposals/build}" role="button">New</a>
     </p>
