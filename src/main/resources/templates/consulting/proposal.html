@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan. 
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna. 
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus. 
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu. 
+  -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+    <form th:fragment="form (action, method, lavel)" class="form-horizontal" th:action="${action}" th:object="${proposal}" th:method="${method}" th:alt="${lavel}">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" th:class="${#fields.hasErrors('contact.id')} ? 'form-group has-error' : 'form-group'">
+                    <label th:for="name" class="col-sm-2 col-md-2 control-label">컨설턴트</label>
+                    <div class="col-sm-10 col-md-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="*{contact.name}" th:readonly="true"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#findRealtyUserModal"
+                                        th:class="${#fields.hasErrors('contact.id')} ? 'btn btn-danger' : 'btn btn-default'"
+                                        th:disabled="${method ne 'post'} ? true : false">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="contact.id" th:value="1"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" th:class="${#fields.hasErrors('consultant.username')} ? 'form-group has-error' : 'form-group'">
+                    <label th:for="name" class="col-sm-2 col-md-2 control-label">컨설턴트</label>
+                    <div class="col-sm-10 col-md-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" th:field="*{consultant.username}" th:readonly="true"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#findRealtyUserModal"
+                                        th:class="${#fields.hasErrors('consultant.username')} ? 'btn btn-danger' : 'btn btn-default'"
+                                        th:disabled="${method ne 'post'} ? true : false">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label th:for="item" class="col-sm-2 control-label">형태</label>
+                    <div class="col-xs-6 col-sm-5">
+                        <select class="form-control" th:field="*{item.type}">
+                            <option th:value="사무실">사무실</option>
+                            <option th:value="오피스텔">오피스텔</option>
+                            <option th:value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6 col-sm-5">
+                        <select class="form-control" th:field="*{item.deal}">
+                            <option th:value="월세">월세</option>
+                            <option th:value="전체">전체</option>
+                            <option th:value="매매">매매</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label th:for="area" class="col-sm-2 control-label">면적</label>
+                    <div class="col-xs-6 col-sm-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">from</span>
+                            <input type="number" min="0.01" max="99999.99" step="0.01" class="form-control text-right" th:field="*{area.fromValue}"/>
+                            <span class="input-group-addon">평</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">to</span>
+                            <input type="number" min="0.01" max="99999.99" step="0.01" class="form-control text-right" th:field="*{area.toValue}"/>
+                            <span class="input-group-addon">평</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-11">
+                <a class="btn btn-default" th:href="@{/proposals/{proposalId}(proposalId=${proposal.id})}">List</a>
+                <button type="submit" class="btn btn-primary" th:text="${lavel} + ' to proposals'">Add or Edit to proposals</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+
+</html>

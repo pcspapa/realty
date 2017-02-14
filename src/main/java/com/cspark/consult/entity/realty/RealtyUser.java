@@ -35,6 +35,15 @@ public class RealtyUser implements UserDetails {
     @Transient
     Collection<? extends GrantedAuthority> authorities = new HashSet<>();
 
+
+    public RealtyUser() {
+    }
+
+    public RealtyUser(String username) {
+        this.username = username;
+    }
+
+
     @Override
     public String getUsername() {
         return username;

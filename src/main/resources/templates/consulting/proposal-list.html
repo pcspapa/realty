@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  ~ Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
   ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
   ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
@@ -96,11 +96,19 @@
                 <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
                 <td th:text="${proposal.contact.company}">company name</td>
                 <td th:text="${proposal.contact.name}">person name</td>
-                <td th:inline="text">[[${proposal.item.type}]] / [[${proposal.item.deal}]]</td>
-                <td th:inline="text">[[${proposal.area.fromValue}]] ~ [[${proposal.area.toValue}]]</td>
-                <td>consultant</td>
-                <td th:inline="text">
-                    [[${proposal.state}]]
+                <td>
+                    <span th:text="${proposal.item?.type}">사무실</span>
+                    <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
+                    <span th:text="${proposal.item?.deal}">임대</span>
+                </td>
+                <td>
+                    <span th:text="${proposal.area?.fromValue}">100</span>
+                    <span th:text="${proposal.area ne null} ? '~' : ''">~</span>
+                    <span th:text="${proposal.area?.toValue}">200</span>
+                </td>
+                <td th:text="${proposal.consultant.username}">consultant</td>
+                <td>
+                    <span th:text="${proposal.state}"></span>
                     <span class="badge" th:text="${#lists.size(proposal.consultings)}">14</span>
                 </td>
             </tr>
@@ -148,7 +156,7 @@
         </div>
     </div>
     <p class="text-right">
-        <a class="btn btn-primary" href="./writing-proposal.html" th:href="@{/proposals/build}" role="button">New</a>
+        <a class="btn btn-primary" href="./writing-proposal.html" th:href="@{/proposals/writing}" role="button">New</a>
     </p>
 
 </div>

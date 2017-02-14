@@ -26,4 +26,6 @@ public interface ProposalService {
     Page<Proposal> findAll(Pageable pageable);
 
     Proposal findOne(long id);
+
+    Proposal add(Proposal proposal);
 }

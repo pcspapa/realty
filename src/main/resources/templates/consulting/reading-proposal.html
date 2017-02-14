@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  ~ Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
   ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
   ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
@@ -62,7 +62,7 @@
     </div>
 </nav>
 
-<div class="container-fluid realty">
+<div class="container-fluid">
 
     <div class="page-header">
         <h1>의뢰서 상세</h1>
@@ -87,8 +87,16 @@
                 <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
                 <td th:text="${proposal.contact.company}"></td>
                 <td th:text="${proposal.contact.name}"></td>
-                <td th:inline="text">[[${proposal.item.type}]] / [[${proposal.item.deal}]]</td>
-                <td th:inline="text">[[${proposal.area.fromValue}]] ~ [[${proposal.area.toValue}]]</td>
+                <td>
+                    <span th:text="${proposal.item?.type}">사무실</span>
+                    <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
+                    <span th:text="${proposal.item?.deal}">임대</span>
+                </td>
+                <td>
+                    <span th:text="${proposal.area?.fromValue}">100</span>
+                    <span th:text="${proposal.area ne null} ? ' ~ ' : ''">~</span>
+                    <span th:text="${proposal.area?.toValue}">200</span>
+                </td>
                 <td th:text="${proposal.contact.mobile}">mobile</td>
                 <td th:text="${proposal.state}">state</td>
             </tr>
@@ -105,12 +113,9 @@
                 <th>물건형태</th>
                 <th>물건층수</th>
                 <th>물건넓이</th>
-
                 <th>물건보증금</th>
                 <th>물건월세</th>
                 <th>물건관리비</th>
-
-
                 <th>진행일자</th>
                 <th>상태</th>
             </tr>
@@ -137,7 +142,7 @@
             </tbody>
             <tbody th:if="${#lists.isEmpty(proposal.consultings)}">
             <tr>
-                <td colspan="3">You have no proposals in your proposal list</td>
+                <td colspan="10">You have no proposals in your proposal list</td>
             </tr>
             </tbody>
         </table>

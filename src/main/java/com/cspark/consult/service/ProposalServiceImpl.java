@@ -40,4 +40,9 @@ public class ProposalServiceImpl implements ProposalService {
     public Proposal findOne(long id) {
         return proposalRepository.findOne(id);
     }
+
+    @Override
+    public Proposal add(Proposal proposal) {
+        return proposalRepository.save(proposal);
+    }
 }

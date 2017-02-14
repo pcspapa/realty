@@ -11,6 +11,8 @@ package com.cspark.consult.repository;
 import com.cspark.consult.entity.realty.Contact;
 import com.cspark.consult.entity.realty.Office;
 import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.RealtyUser;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,16 @@ public class ProposalRepositoryTest {
 
     @Autowired
     private ProposalRepository proposalRepository;
+    private Proposal entity;
+
+    @Before
+    public void setUp() throws Exception {
+        entity = new Proposal(new Contact(1L), new RealtyUser("pcspapa"), new Office.Item("사무실", "임대"), new Proposal.Area(50, 100), new RealtyUser("pcspapa"), new RealtyUser("pcspapa"));
+    }
 
     @Test
     public void insertProposal() {
-        Proposal proposal = proposalRepository.save(new Proposal(new Contact(1L), new Office.Item("사무실", "임대"), new Proposal.Area(50, 100)));
+        Proposal proposal = proposalRepository.save(entity);
         proposalRepository.flush();
 
         assertThat(proposal.getItem().getType(), is("사무실"));

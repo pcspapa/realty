@@ -30,6 +30,10 @@ public class Proposal implements HasCreatedAndUpdatedDate {
     @ManyToOne(optional = false)
     private Contact contact;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "consultant_username", referencedColumnName = "username")
+    private RealtyUser consultant;
+
     @OneToMany(mappedBy = "proposal")
     private Set<Consulting> consultings = new HashSet<>();
 
@@ -49,9 +53,17 @@ public class Proposal implements HasCreatedAndUpdatedDate {
 
     private String state;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "created_username", referencedColumnName = "username")
+    private RealtyUser createdUser;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date createdDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "updated_username", referencedColumnName = "username")
+    private RealtyUser updatedUser;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -64,17 +76,26 @@ public class Proposal implements HasCreatedAndUpdatedDate {
         this.id= id;
     }
 
+    public Proposal(long id, Contact contact, Office.Item item, Area area) {
+        this.id = id;
+        this.contact = contact;
+        this.item = item;
+        this.area = area;
+    }
+
     public Proposal(Contact contact, Office.Item item, Area area) {
         this.contact = contact;
         this.item = item;
         this.area = area;
     }
 
-    public Proposal(long id, Contact contact, Office.Item item, Area area) {
-        this.id = id;
+    public Proposal(Contact contact, RealtyUser consultant, Office.Item item, Area area, RealtyUser createdUser, RealtyUser updatedUser) {
         this.contact = contact;
+        this.consultant = consultant;
         this.item = item;
         this.area = area;
+        this.createdUser = createdUser;
+        this.updatedUser = updatedUser;
     }
 
     public Long getId() {
@@ -91,6 +112,14 @@ public class Proposal implements HasCreatedAndUpdatedDate {
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    public RealtyUser getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(RealtyUser consultant) {
+        this.consultant = consultant;
     }
 
     public Set<Consulting> getConsultings() {
@@ -129,6 +158,14 @@ public class Proposal implements HasCreatedAndUpdatedDate {
         this.state = state;
     }
 
+    public RealtyUser getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(RealtyUser createdUser) {
+        this.createdUser = createdUser;
+    }
+
     @Override
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
@@ -137,6 +174,14 @@ public class Proposal implements HasCreatedAndUpdatedDate {
     @Override
     public Date getCreatedDate() {
         return createdDate;
+    }
+
+    public RealtyUser getUpdatedUser() {
+        return updatedUser;
+    }
+
+    public void setUpdatedUser(RealtyUser updatedUser) {
+        this.updatedUser = updatedUser;
     }
 
     @Override
