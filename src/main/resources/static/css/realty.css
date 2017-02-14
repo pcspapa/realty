@@ -6,14 +6,12 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.repository;
-
-import com.cspark.consult.entity.realty.Proposal;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-/**
- * Created by cspark on 2017. 2. 9..
- */
-public interface ProposalRepository extends JpaRepository<Proposal, Long> {
-
+#page-login{
+    margin-top: 20px;
+}
+#page-login .text-right {
+    margin-top: 15px;
+}
+#page-login .panel {
+    margin-top:15%;
 }

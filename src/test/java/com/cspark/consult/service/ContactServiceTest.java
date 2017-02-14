@@ -8,7 +8,7 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Contact;
+import com.cspark.consult.entity.realty.Contact;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

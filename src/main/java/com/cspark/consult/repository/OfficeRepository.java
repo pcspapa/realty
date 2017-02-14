@@ -8,7 +8,7 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.Office;
+import com.cspark.consult.entity.realty.Office;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

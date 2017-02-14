@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.entity;
+package com.cspark.consult.entity.realty;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ForeignKey;

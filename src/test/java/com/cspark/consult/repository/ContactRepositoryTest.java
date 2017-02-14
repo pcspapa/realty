@@ -8,7 +8,7 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.Contact;
+import com.cspark.consult.entity.realty.Contact;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

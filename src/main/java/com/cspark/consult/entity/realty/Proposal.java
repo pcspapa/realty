@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.entity;
+package com.cspark.consult.entity.realty;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -37,10 +37,10 @@ public class Proposal {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "fromValue", column = @Column(name = "target_area_from")),
-            @AttributeOverride(name = "toValue", column = @Column(name = "target_area_to"))
+            @AttributeOverride(name = "fromValue", column = @Column(name = "area_from")),
+            @AttributeOverride(name = "toValue", column = @Column(name = "area_to"))
     })
-    private TargetArea targetArea;
+    private Area area;
 
     public Proposal() {
     }
@@ -49,17 +49,17 @@ public class Proposal {
         this.id= id;
     }
 
-    public Proposal(Contact contact, Office.Item item, TargetArea targetArea) {
+    public Proposal(Contact contact, Office.Item item, Area area) {
         this.contact = contact;
         this.item = item;
-        this.targetArea = targetArea;
+        this.area = area;
     }
 
-    public Proposal(long id, Contact contact, Office.Item item, TargetArea targetArea) {
+    public Proposal(long id, Contact contact, Office.Item item, Area area) {
         this.id = id;
         this.contact = contact;
         this.item = item;
-        this.targetArea = targetArea;
+        this.area = area;
     }
 
     public Long getId() {
@@ -98,12 +98,12 @@ public class Proposal {
         this.item = item;
     }
 
-    public TargetArea getTargetArea() {
-        return targetArea;
+    public Area getArea() {
+        return area;
     }
 
-    public void setTargetArea(TargetArea targetArea) {
-        this.targetArea = targetArea;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     @Override
@@ -113,22 +113,22 @@ public class Proposal {
         sb.append(", contact=").append(contact);
         sb.append(", consultings=").append(consultings);
         sb.append(", item=").append(item);
-        sb.append(", targetArea=").append(targetArea);
+        sb.append(", area=").append(area);
         sb.append('}');
         return sb.toString();
     }
 
     @Embeddable
-    public static class TargetArea {
+    public static class Area {
 
         private Integer fromValue;
 
         private Integer toValue;
 
-        public TargetArea() {
+        public Area() {
         }
 
-        public TargetArea(Integer fromValue, Integer toValue) {
+        public Area(Integer fromValue, Integer toValue) {
 
             this.fromValue = fromValue;
             this.toValue = toValue;
@@ -148,6 +148,15 @@ public class Proposal {
 
         public void setToValue(Integer toValue) {
             this.toValue = toValue;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("Area{");
+            sb.append("fromValue=").append(fromValue);
+            sb.append(", toValue=").append(toValue);
+            sb.append('}');
+            return sb.toString();
         }
     }
 }

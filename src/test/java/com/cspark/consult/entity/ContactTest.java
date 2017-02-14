@@ -8,6 +8,7 @@
 
 package com.cspark.consult.entity;
 
+import com.cspark.consult.entity.realty.Contact;
 import org.junit.Before;
 import org.junit.Test;
 

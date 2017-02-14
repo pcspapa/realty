@@ -8,7 +8,7 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Contact;
+import com.cspark.consult.entity.realty.Contact;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

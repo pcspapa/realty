@@ -8,9 +8,9 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Building;
-import com.cspark.consult.entity.BuildingContact;
-import com.cspark.consult.entity.Contact;
+import com.cspark.consult.entity.realty.Building;
+import com.cspark.consult.entity.realty.BuildingContact;
+import com.cspark.consult.entity.realty.Contact;
 import com.cspark.consult.repository.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -8,8 +8,8 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Building;
-import com.cspark.consult.entity.Office;
+import com.cspark.consult.entity.realty.Building;
+import com.cspark.consult.entity.realty.Office;
 import com.cspark.consult.repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.entity;
+package com.cspark.consult.entity.realty;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -118,6 +118,10 @@ public class Building {
     public void addOffice(Office office) {
         office.setBuilding(this);
         offices.add(office);
+    }
+
+    public String getName() {
+        return address.getBuildingName();
     }
 
     @Override

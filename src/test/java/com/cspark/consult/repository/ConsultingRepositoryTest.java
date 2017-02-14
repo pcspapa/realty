@@ -8,9 +8,9 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.Consulting;
-import com.cspark.consult.entity.Office;
-import com.cspark.consult.entity.Proposal;
+import com.cspark.consult.entity.realty.Consulting;
+import com.cspark.consult.entity.realty.Office;
+import com.cspark.consult.entity.realty.Proposal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

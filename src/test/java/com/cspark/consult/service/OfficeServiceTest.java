@@ -8,8 +8,8 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Building;
-import com.cspark.consult.entity.Office;
+import com.cspark.consult.entity.realty.Building;
+import com.cspark.consult.entity.realty.Office;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +42,7 @@ public class OfficeServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        someOffice = new Office(new Office.Item("사무실", "임대"), new Office.TargetFloor(4, null, "전체"));
+        someOffice = new Office(new Office.Item("사무실", "임대"), new Office.Floor(4, null, "전체"));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class OfficeServiceTest {
         someOffice.setId(1L);
         Office office = officeService.rebuild(someOffice);
 
-        assertThat(office.getTargetFloor().getFromValue(), is(4));
+        assertThat(office.getFloor().getFromValue(), is(4));
     }
 
     /**

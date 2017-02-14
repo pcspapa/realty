@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.entity;
+package com.cspark.consult.entity.realty;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,14 +36,38 @@ public class Office {
     })
     private Item item;
 
+    /**
+     * 해당 층수 (target floor)
+     */
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "fromValue", column = @Column(name = "TARGET_FLOOR_FROM")),
-            @AttributeOverride(name = "toValue", column = @Column(name = "TARGET_FLOOR_TO")),
-            @AttributeOverride(name = "note", column = @Column(name = "TARGET_FLOOR_NOTE"))
+            @AttributeOverride(name = "fromValue", column = @Column(name = "FLOOR_FROM")),
+            @AttributeOverride(name = "toValue", column = @Column(name = "FLOOR_TO")),
+            @AttributeOverride(name = "note", column = @Column(name = "FLOOR_NOTE"))
     })
-    private TargetFloor targetFloor;
+    private Floor floor;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "pyeong", column = @Column(name = "area_py")),
+            @AttributeOverride(name = "squareMeter", column = @Column(name = "area_m2"))
+    })
+    private Area area;
+
+    /**
+     * 보증금
+     */
+    private Integer deposit;
+
+    /**
+     * 월세
+     */
+    private Integer monthlyRent;
+
+    /**
+     * 관리비
+     */
+    private Integer maintenanceFee;
 
     public Office() {
     }
@@ -52,15 +76,15 @@ public class Office {
         this.id = id;
     }
 
-    public Office(Item item, TargetFloor targetFloor) {
+    public Office(Item item, Floor floor) {
         this.item = item;
-        this.targetFloor = targetFloor;
+        this.floor = floor;
     }
 
-    public Office(Long id, Item item, TargetFloor targetFloor) {
+    public Office(Long id, Item item, Floor floor) {
         this.id = id;
         this.item = item;
-        this.targetFloor = targetFloor;
+        this.floor = floor;
     }
 
     public Long getId() {
@@ -99,14 +123,62 @@ public class Office {
         this.item = item;
     }
 
-    public TargetFloor getTargetFloor() {
-        return targetFloor;
+    public Floor getFloor() {
+        return floor;
     }
 
-    public void setTargetFloor(TargetFloor targetFloor) {
-        this.targetFloor = targetFloor;
+    public void setFloor(Floor floor) {
+        this.floor = floor;
     }
 
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Integer getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Integer deposit) {
+        this.deposit = deposit;
+    }
+
+    public Integer getMonthlyRent() {
+        return monthlyRent;
+    }
+
+    public void setMonthlyRent(Integer monthlyRent) {
+        this.monthlyRent = monthlyRent;
+    }
+
+    public Integer getMaintenanceFee() {
+        return maintenanceFee;
+    }
+
+    public void setMaintenanceFee(Integer maintenanceFee) {
+        this.maintenanceFee = maintenanceFee;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Office{");
+        sb.append("id=").append(id);
+        if (building != null)
+            sb.append(", building_id=").append(building.getId());
+        sb.append(", consultings=").append(consultings);
+        sb.append(", item=").append(item);
+        sb.append(", floor=").append(floor);
+        sb.append(", area=").append(area);
+        sb.append(", deposit=").append(deposit);
+        sb.append(", monthlyRent=").append(monthlyRent);
+        sb.append(", maintenanceFee=").append(maintenanceFee);
+        sb.append('}');
+        return sb.toString();
+    }
 
     @Embeddable
     public static class Item {
@@ -150,7 +222,7 @@ public class Office {
     }
 
     @Embeddable
-    public static class TargetFloor {
+    public static class Floor {
 
         private Integer fromValue;
 
@@ -158,10 +230,10 @@ public class Office {
 
         private String note;
 
-        public TargetFloor() {
+        public Floor() {
         }
 
-        public TargetFloor(Integer fromValue, Integer toValue, String note) {
+        public Floor(Integer fromValue, Integer toValue, String note) {
             this.fromValue = fromValue;
             this.toValue = toValue;
             this.note = note;
@@ -181,7 +253,7 @@ public class Office {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer("TargetFloor{");
+            final StringBuffer sb = new StringBuffer("Floor{");
             sb.append("fromValue=").append(fromValue);
             sb.append(", toValue=").append(toValue);
             sb.append(", note='").append(note).append('\'');
@@ -190,16 +262,4 @@ public class Office {
         }
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Office{");
-        sb.append("id=").append(id);
-        if (building != null)
-            sb.append(", building_id=").append(building.getId());
-        sb.append(", consultings=").append(consultings);
-        sb.append(", item=").append(item);
-        sb.append(", targetFloor=").append(targetFloor);
-        sb.append('}');
-        return sb.toString();
-    }
 }

@@ -8,27 +8,28 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.Contact;
-import com.cspark.consult.entity.Office;
-import com.cspark.consult.entity.Proposal;
+import com.cspark.consult.entity.realty.Contact;
+import com.cspark.consult.entity.realty.Office;
+import com.cspark.consult.entity.realty.Proposal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by cspark on 2017. 2. 9..
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@ActiveProfiles("test")
 public class ProposalRepositoryTest {
 
     @Autowired
@@ -36,7 +37,7 @@ public class ProposalRepositoryTest {
 
     @Test
     public void insertProposal() {
-        Proposal proposal = proposalRepository.save(new Proposal(new Contact(1L), new Office.Item("사무실", "임대"), new Proposal.TargetArea(50, 100)));
+        Proposal proposal = proposalRepository.save(new Proposal(new Contact(1L), new Office.Item("사무실", "임대"), new Proposal.Area(50, 100)));
         proposalRepository.flush();
 
         assertThat(proposal.getItem().getType(), is("사무실"));
@@ -73,7 +74,7 @@ public class ProposalRepositoryTest {
 
     @Test
     public void updateProposal() {
-        Proposal proposal = new Proposal(1L, new Contact(1L), new Office.Item("오피스텔", "임대"), new Proposal.TargetArea(50, 100));
+        Proposal proposal = new Proposal(1L, new Contact(1L), new Office.Item("오피스텔", "임대"), new Proposal.Area(50, 100));
 
         proposalRepository.save(proposal);
         proposalRepository.flush();
@@ -87,7 +88,7 @@ public class ProposalRepositoryTest {
      */
     @Test
     public void createProposal_addOffice() {
-        Proposal proposal = proposalRepository.save(new Proposal(new Contact(1L), new Office.Item("사무실", "임대"), new Proposal.TargetArea(50, 100)));
+        Proposal proposal = proposalRepository.save(new Proposal(new Contact(1L), new Office.Item("사무실", "임대"), new Proposal.Area(50, 100)));
         proposal.addOffice(new Office(1L));
         proposalRepository.flush();
 

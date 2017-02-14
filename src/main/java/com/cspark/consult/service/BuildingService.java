@@ -8,7 +8,7 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.Building;
+import com.cspark.consult.entity.realty.Building;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

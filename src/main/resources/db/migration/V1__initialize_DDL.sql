@@ -44,9 +44,14 @@ create table office (
     building_id bigint not null,
     item_deal varchar(255),
     item_type varchar(255),
-    target_floor_from integer,
-    target_floor_note varchar(255),
-    target_floor_to integer,
+    floor_from integer,
+    floor_to integer,
+    floor_note varchar(255),
+    area_py integer,
+    area_m2 integer,
+    deposit integer,
+    monthly_rent integer,
+    maintenance_fee integer,
     primary key (id)
 );
 
@@ -55,8 +60,8 @@ create table proposal (
     contact_id bigint not null,
     item_deal varchar(255),
     item_type varchar(255),
-    target_area_from integer,
-    target_area_to integer,
+    area_from integer,
+    area_to integer,
     primary key (id)
 );
 
@@ -84,15 +89,15 @@ insert into building_contact(building_id, contact_id, director) values(1, 1, '�
 insert into building_contact(building_id, contact_id, director) values(1, 2, '임대인');
 insert into building_contact(building_id, contact_id, director) values(2, 3, '건물주');
 
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(1, 1, '임대', '사무실', 1,  null, '전체');
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(2, 1, '임대', '사무실', 2,  null, '전체');
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(3, 1, '임대', '사무실', 3,  null, '전체');
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(4, 1, '임대', '사무실', 4,  null, '전체');
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(1, 1, '임대', '사무실', 1,  null, '전체', 3000, 300, 30);
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(2, 1, '임대', '사무실', 2,  null, '전체', 4000, 400, 40);
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(3, 1, '임대', '사무실', 3,  null, '전체', 5000, 500, 50);
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(4, 1, '임대', '사무실', 4,  null, '전체', 6000, 600, 60);
 
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(1, 1, '사무실', '임대', 100, 110);
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(2, 2, '사무실', '임대', 110, 120);
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(3, 3, '사무실', '임대', 120, 130);
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(4, 4, '사무실', '임대', 130, 140);
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to) values(1, 1, '사무실', '임대', 100, 110);
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to) values(2, 2, '사무실', '임대', 110, 120);
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to) values(3, 3, '사무실', '임대', 120, 130);
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to) values(4, 4, '사무실', '임대', 130, 140);
 
 
 insert into consulting(proposal_id, office_id, state) values(1, 1, '진행');

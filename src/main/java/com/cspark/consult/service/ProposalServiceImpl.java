@@ -8,40 +8,29 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.realty.Contact;
-import com.cspark.consult.repository.ContactRepository;
+import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * Created by cspark on 2017. 2. 8..
+ * Created by cspark on 2017. 2. 13..
  */
 @Service
-public class ContactServiceImpl implements ContactService {
+public class ProposalServiceImpl implements ProposalService {
 
     @Autowired
-    private ContactRepository contactRepository;
+    private ProposalRepository proposalRepository;
 
     @Override
-    public void contact(Contact contact) {
-        contactRepository.save(contact);
+    public List<Proposal> findAll() {
+        return proposalRepository.findAll();
     }
 
     @Override
-    public Contact findOne(long id) {
-        return contactRepository.findOne(id);
+    public Proposal findOne(long id) {
+        return proposalRepository.findOne(id);
     }
-
-    @Override
-    public List<Contact> findAll() {
-        return contactRepository.findAll();
-    }
-
-    @Override
-    public Contact recontact(Contact contact) {
-        return contactRepository.save(contact);
-    }
-
 }

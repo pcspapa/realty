@@ -8,9 +8,8 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.Building;
+import com.cspark.consult.entity.realty.Building;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * Created by cspark on 2017. 2. 7..

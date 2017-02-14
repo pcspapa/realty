@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <name>Business Consulting :: proposal List</name>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/realty.css" th:href="@{/css/realty.css}"/>
+
+    <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {});
+    </script>
+</head>
+
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#" th:href="@{/proposals/}">의뢰서</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../navbar/">Default</a></li>
+                <li><a href="../navbar-static-top/">Static top</a></li>
+                <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container-fluid realty">
+
+    <div id="page-login" class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <div class="text-right">
+                <a href="page_register.html" class="txt-default">Need an account?</a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form th:action="@{/login}" method="post">
+                        <div class="text-center">
+                            <h3 class="page-header">Realty Login Page</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input type="text" class="form-control" name="username" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input type="password" class="form-control" name="password" />
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

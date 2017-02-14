@@ -6,14 +6,20 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.repository;
+package com.cspark.consult.service;
 
 import com.cspark.consult.entity.realty.Proposal;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
- * Created by cspark on 2017. 2. 9..
+ * Created by cspark on 2017. 2. 13..
  */
-public interface ProposalRepository extends JpaRepository<Proposal, Long> {
+@Transactional(readOnly = true)
+public interface ProposalService {
 
+    List<Proposal> findAll();
+
+    Proposal findOne(long id);
 }
