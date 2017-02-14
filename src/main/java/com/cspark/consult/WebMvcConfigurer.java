@@ -8,10 +8,14 @@
 
 package com.cspark.consult;
 
+import com.cspark.consult.web.RealtyUserHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.util.List;
 
 /**
  * Created by cspark on 2017. 2. 14..
@@ -29,5 +33,10 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         if (!registry.hasMappingForPattern("/webjars/**"))
             registry.addResourceHandler("/webjars/**")
                     .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new RealtyUserHandlerMethodArgumentResolver());
     }
 }

@@ -1,3 +1,7 @@
+insert into realty_user(username, password, enabled) values('pcspapa', '1111', true);
+
+insert into realty_authority(id, username, role) values(1, 'pcspapa', 'ROLE_CONSULTANT');
+
 insert into building(id, address_building_name, address_city, address_street, address_zipcode, basement_floor, ground_floor) values(1, '국회도서관', '서울시', '서울특별시 영등포구 의사당대로 1', '12345', 5, 1);
 insert into building(id, address_building_name, address_city, address_street, address_zipcode, basement_floor, ground_floor) values(2, '카카오 스페이스닷원', '서울시', '제주특별자치도 제주시 첨단로 242', '63309', 3, 0);
 
@@ -11,16 +15,15 @@ insert into building_contact(building_id, contact_id, director) values(1, 1, '�
 insert into building_contact(building_id, contact_id, director) values(1, 2, '임대인');
 insert into building_contact(building_id, contact_id, director) values(2, 3, '건물주');
 
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(1, 1, '임대', '사무실', 1,  null, '전체');
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(2, 1, '임대', '사무실', 2,  null, '전체');
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(3, 1, '임대', '사무실', 3,  null, '전체');
-insert into office (id, building_id, item_deal, item_type, target_floor_from, target_floor_to, target_floor_note) values(4, 1, '임대', '사무실', 4,  null, '전체');
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(1, 1, '임대', '사무실', 1,  null, '전체', 3000, 300, 30);
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(2, 1, '임대', '사무실', 2,  null, '전체', 4000, 400, 40);
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(3, 1, '임대', '사무실', 3,  null, '전체', 5000, 500, 50);
+insert into office (id, building_id, item_deal, item_type, floor_from, floor_to, floor_note, deposit, maintenance_fee, monthly_rent) values(4, 1, '임대', '사무실', 4,  null, '전체', 6000, 600, 60);
 
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(1, 1, '사무실', '임대', 100, 110);
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(2, 2, '사무실', '임대', 110, 120);
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(3, 3, '사무실', '임대', 120, 130);
-insert into proposal(id, contact_id, item_type, item_deal, target_area_from, target_area_to) values(4, 4, '사무실', '임대', 130, 140);
-
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(1, 1, '사무실', '임대', 100, 110, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(2, 2, '사무실', '임대', 110, 120, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(3, 3, '사무실', '임대', 120, 130, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+insert into proposal(id, contact_id, item_type, item_deal, area_from, area_to, state, created_date, updated_date) values(4, 4, '사무실', '임대', 130, 140, '진행', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 insert into consulting(proposal_id, office_id, state) values(1, 1, '진행');
 insert into consulting(proposal_id, office_id, state) values(1, 2, '완결');

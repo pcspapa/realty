@@ -83,13 +83,14 @@
             </thead>
             <tbody>
             <tr>
-                <td>2017.03.01</td>
+
+                <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
                 <td th:text="${proposal.contact.company}"></td>
                 <td th:text="${proposal.contact.name}"></td>
                 <td th:inline="text">[[${proposal.item.type}]] / [[${proposal.item.deal}]]</td>
                 <td th:inline="text">[[${proposal.area.fromValue}]] ~ [[${proposal.area.toValue}]]</td>
                 <td th:text="${proposal.contact.mobile}">mobile</td>
-                <td>state</td>
+                <td th:text="${proposal.state}">state</td>
             </tr>
             </tbody>
         </table>

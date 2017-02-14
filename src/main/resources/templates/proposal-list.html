@@ -78,27 +78,27 @@
         <h1>의뢰서 목록</h1>
     </div>
 
-    <table class="table table-hover">
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <td>접수일자</td>
-            <td>의뢰기업</td>
-            <td>의뢰자</td>
-            <td>의뢰형태</td>
-            <td>의뢰평수</td>
-            <td>컨설턴트</td>
-            <td>상태</td>
+            <th>의뢰일자</th>
+            <th>의뢰회사</th>
+            <th>의뢰담당자</th>
+            <th>의뢰형태</th>
+            <th>의뢰평수</th>
+            <th>컨설턴트</th>
+            <th>상태</th>
         </tr>
         </thead>
         <tbody th:unless="${#lists.isEmpty(proposals)}">
         <tr th:each="proposal : ${proposals}" th:attr="data-id=${proposal.id},data-url=@{/proposals/}">
-            <td>2017.03.01</td>
+            <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
             <td th:text="${proposal.contact.company}">company name</td>
             <td th:text="${proposal.contact.name}">person name</td>
-            <td th:text="${proposal.item}">office item</td>
-            <td th:text="${proposal.area}">office area</td>
+            <td th:inline="text">[[${proposal.item.type}]] / [[${proposal.item.deal}]]</td>
+            <td th:inline="text">[[${proposal.area.fromValue}]] ~ [[${proposal.area.toValue}]]</td>
             <td>consultant</td>
-            <td>state</td>
+            <td th:text="${proposal.state}">state</td>
         </tr>
         </tbody>
         <tbody th:if="${#lists.isEmpty(proposals)}">

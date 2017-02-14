@@ -8,7 +8,11 @@
 
 package com.cspark.consult.entity.realty;
 
+import com.cspark.consult.entity.CreatedAndUpdatedDateEntityListener;
+import com.cspark.consult.entity.HasCreatedAndUpdatedDate;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +20,8 @@ import java.util.Set;
  * Created by cspark on 2017. 2. 8..
  */
 @Entity
-public class Proposal {
+@EntityListeners({ CreatedAndUpdatedDateEntityListener.class })
+public class Proposal implements HasCreatedAndUpdatedDate {
 
     @Id
     @GeneratedValue
@@ -41,6 +46,16 @@ public class Proposal {
             @AttributeOverride(name = "toValue", column = @Column(name = "area_to"))
     })
     private Area area;
+
+    private String state;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedDate;
 
     public Proposal() {
     }
@@ -106,6 +121,34 @@ public class Proposal {
         this.area = area;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    @Override
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Proposal{");
@@ -114,6 +157,9 @@ public class Proposal {
         sb.append(", consultings=").append(consultings);
         sb.append(", item=").append(item);
         sb.append(", area=").append(area);
+        sb.append(", state='").append(state).append('\'');
+        sb.append(", createdDate=").append(createdDate);
+        sb.append(", updatedDate=").append(updatedDate);
         sb.append('}');
         return sb.toString();
     }

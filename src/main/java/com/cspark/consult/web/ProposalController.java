@@ -8,6 +8,7 @@
 
 package com.cspark.consult.web;
 
+import com.cspark.consult.entity.realty.RealtyUser;
 import com.cspark.consult.service.ProposalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,11 @@ public class ProposalController {
 
 
     @RequestMapping
-    public String proposlas(Model model) {
+    public String proposlas(RealtyUser realtyUser, Model model) {
+
+        System.out.println(realtyUser);
+        System.out.println(realtyUser);
+
         model.addAttribute("proposals", proposalService.findAll());
 
         return "proposal-list";
