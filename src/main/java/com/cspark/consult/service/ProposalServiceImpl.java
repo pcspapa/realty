@@ -8,7 +8,7 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.consulting.Proposal;
 import com.cspark.consult.repository.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,6 +43,11 @@ public class ProposalServiceImpl implements ProposalService {
 
     @Override
     public Proposal add(Proposal proposal) {
+        return proposalRepository.save(proposal);
+    }
+
+    @Override
+    public Proposal edit(Proposal proposal) {
         return proposalRepository.save(proposal);
     }
 }

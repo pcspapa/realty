@@ -8,7 +8,7 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.consulting.Proposal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

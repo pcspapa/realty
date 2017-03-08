@@ -10,8 +10,8 @@ package com.cspark.consult.repository;
 
 import com.cspark.consult.entity.realty.Contact;
 import com.cspark.consult.entity.realty.Office;
-import com.cspark.consult.entity.realty.Proposal;
-import com.cspark.consult.entity.realty.RealtyUser;
+import com.cspark.consult.entity.realty.consulting.Proposal;
+import com.cspark.consult.entity.realty.user.RealtyUser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,9 +30,9 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by cspark on 2017. 2. 9..
  */
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ActiveProfiles("test")
 public class ProposalRepositoryTest {
 
     @Autowired
@@ -49,17 +49,17 @@ public class ProposalRepositoryTest {
         Proposal proposal = proposalRepository.save(entity);
         proposalRepository.flush();
 
-        assertThat(proposal.getItem().getType(), is("사무실"));
-        assertThat(proposal.getItem().getDeal(), is("임대"));
+        assertThat(proposal.getItem().getTypeCd(), is("사무실"));
+        assertThat(proposal.getItem().getDealCd(), is("임대"));
     }
 
     @Test
     public void findProposal() {
         Proposal proposal = proposalRepository.findOne(1L);
 
-        assertThat(proposal.getItem().getType(), is("사무실"));
-        assertThat(proposal.getItem().getDeal(), is("임대"));
-        assertThat(proposal.getContact().getCompany(), is("google"));
+        assertThat(proposal.getItem().getTypeCd(), is("사무실"));
+        assertThat(proposal.getItem().getDealCd(), is("임대"));
+        assertThat(proposal.getClient().getCompany(), is("google"));
         assertThat(proposal.getConsultings().size(), is(3));
     }
 
@@ -102,12 +102,12 @@ public class ProposalRepositoryTest {
     @Test
     public void findProposalAndUpdateProposal() {
         Proposal before = proposalRepository.findOne(1L);
-        before.getItem().setType("오피스텔");
+        before.getItem().setTypeCd("오피스텔");
         proposalRepository.flush();
 
         Proposal after = proposalRepository.findOne(1L);
 
-        assertThat(after.getItem().getType(), is("오피스텔"));
+        assertThat(after.getItem().getTypeCd(), is("오피스텔"));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ProposalRepositoryTest {
         proposalRepository.save(proposal);
         proposalRepository.flush();
 
-        assertThat(proposal.getItem().getType(), is("오피스텔"));
+        assertThat(proposal.getItem().getTypeCd(), is("오피스텔"));
     }
 
 

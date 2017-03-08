@@ -8,7 +8,7 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.consulting.Proposal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,4 +28,7 @@ public interface ProposalService {
     Proposal findOne(long id);
 
     Proposal add(Proposal proposal);
+
+    Proposal edit(Proposal proposal);
+
 }

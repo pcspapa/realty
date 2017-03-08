@@ -9,7 +9,11 @@
 
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <name>Business Consulting :: Writing Contact</name>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <name>Business Consulting :: Reading Proposal</name>
+    <title>Business Consulting :: Reading Proposal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="./static/realty.css" th:href="@{/css/realty.css}"/>
 
@@ -37,26 +41,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#" th:href="@{/proposals/}">의뢰서</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="#" th:href="@{/proposals/}">Proposal</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Product <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="#" th:href="@{/product/buildings}">Building</a></li>
+                        <li><a href="#" th:href="@{/product/offices}">Office</a></li>
                     </ul>
                 </li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="../navbar/">Default</a></li>
-                <li><a href="../navbar-static-top/">Static top</a></li>
-                <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+                <li><a href="#client">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -68,88 +64,196 @@
         <h1>의뢰서 상세</h1>
     </div>
 
-    <div class="panel panel-default">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th class="text-nowrap text-center" scope="row">요청일자</th>
-                <th class="text-nowrap text-center" scope="row">요청기업</th>
-                <th class="text-nowrap text-center" scope="row">요청자</th>
-                <th class="text-nowrap text-center" scope="row">의뢰형태</th>
-                <th class="text-nowrap text-center" scope="row">의뢰평수</th>
-                <th class="text-nowrap text-center" scope="row">담당자</th>
-                <th class="text-nowrap text-center" scope="row">상태</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>의뢰인</h3>
+                    <div class="panel panel-default">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="text-nowrap text-center" scope="row">요청일자</th>
+                                    <th class="text-nowrap text-center" scope="row">요청기업</th>
+                                    <th class="text-nowrap text-center" scope="row">요청자</th>
+                                    <th class="text-nowrap text-center" scope="row">의뢰형태</th>
+                                    <th class="text-nowrap text-center" scope="row">의뢰평수</th>
+                                    <th class="text-nowrap text-center" scope="row">담당자</th>
+                                    <th class="text-nowrap text-center" scope="row">상태</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
 
-                <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
-                <td th:text="${proposal.contact.company}"></td>
-                <td th:text="${proposal.contact.name}"></td>
-                <td>
-                    <span th:text="${proposal.item?.type}">사무실</span>
-                    <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
-                    <span th:text="${proposal.item?.deal}">임대</span>
-                </td>
-                <td>
-                    <span th:text="${proposal.area?.fromValue}">100</span>
-                    <span th:text="${proposal.area ne null} ? ' ~ ' : ''">~</span>
-                    <span th:text="${proposal.area?.toValue}">200</span>
-                </td>
-                <td th:text="${proposal.contact.mobile}">mobile</td>
-                <td th:text="${proposal.state}">state</td>
-            </tr>
-            </tbody>
-        </table>
+                                    <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
+                                    <td th:text="${proposal.client.company}"></td>
+                                    <td th:text="${proposal.client.name}"></td>
+                                    <td>
+                                        <span th:text="${proposal.item?.typeCd}">사무실</span>
+                                        <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
+                                        <span th:text="${proposal.item?.dealCd}">임대</span>
+                                    </td>
+                                    <td>
+                                        <span th:text="${proposal.area?.fromValue}">100</span>
+                                        <span th:text="${proposal.area ne null} ? ' ~ ' : ''">~</span>
+                                        <span th:text="${proposal.area?.toValue}">200</span>
+                                    </td>
+                                    <td th:text="${proposal.client.mobile}">mobile</td>
+                                    <td th:text="${proposal.state}">state</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>의뢰내용</h3>
+                    <div class="panel panel-default">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th>형태</th>
+                                <td colspan="3" th:inline="text">[[${proposal.item.typeCd}]] / [[${proposal.item.dealCd}]]</td>
+                            </tr>
+                            <tr>
+                                <th>건물형태</th>
+                                <td th:text="${proposal.buildingTypeCd}"></td>
+                                <th>면적</th>
+                                <td class="text-right">
+                                    <span th:if="${proposal.area?.fromValue}" th:text="${#numbers.formatDecimal(proposal.area?.fromValue, 0, 'COMMA', 0, 'POINT')}"></span>평 ~ <span th:if="${proposal.area?.toValue}" th:text="${#numbers.formatDecimal(proposal.area?.toValue, 0, 'COMMA', 0, 'POINT')}"></span>평
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>사용형태</th>
+                                <td th:text="${proposal.usageTypeCb}"></td>
+                                <th>희망층</th>
+                                <td class="text-right" th:text="${proposal.floor}"></td>
+                            </tr>
+                            <tr>
+                                <th>보증금</th>
+                                <td class="text-right">
+                                    <span th:if="${proposal.deposit?.fromValue}" th:text="${#numbers.formatDecimal(proposal.deposit?.fromValue, 0, 'COMMA', 0, 'POINT')}"></span>만원 ~ <span th:if="${proposal.deposit?.toValue}" th:text="${#numbers.formatDecimal(proposal.deposit?.toValue, 0, 'COMMA', 0, 'POINT')}"></span>만원
+                                </td>
+                                <th>전세금</th>
+                                <td class="text-right">
+                                    <span th:if="${proposal.lease?.fromValue}" th:text="${#numbers.formatDecimal(proposal.lease?.fromValue, 0, 'COMMA', 0, 'POINT')}"></span>만원 ~ <span th:if="${proposal.lease?.toValue}" th:text="${#numbers.formatDecimal(proposal.lease?.toValue, 0, 'COMMA', 0, 'POINT')}"></span>만원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>월지출</th>
+                                <td class="text-right">
+                                    <span th:if="${proposal.rent?.fromValue}" th:text="${#numbers.formatDecimal(proposal.rent?.fromValue, 0, 'COMMA', 0, 'POINT')}"></span>만원 ~ <span th:if="${proposal.rent?.toValue}" th:text="${#numbers.formatDecimal(proposal.rent?.toValue, 0, 'COMMA', 0, 'POINT')}"></span>만원
+                                </td>
+                                <th>주요권역</th>
+                                <td th:text="${proposal.mainRegionCb}"></td>
+                            </tr>
+                            <tr>
+                                <th>역세권</th>
+                                <td th:text="${proposal.subwayAccessibility}"></td>
+                                <th>대로변</th>
+                                <td th:text="${proposal.streetAccessibility}"></td>
+                            </tr>
+                            <tr>
+                                <th>지역명칭</th>
+                                <td th:text="${proposal.townName}"></td>
+                                <th>인테리어</th>
+                                <td th:text="${proposal.interior}"></td>
+                            </tr>
+                            <tr>
+                                <th>냉난방방식</th>
+                                <td th:text="${proposal.airConditioningSystemCd}"></td>
+                                <th>주차방식</th>
+                                <td th:text="${proposal.parkingFacility}"></td>
+                            </tr>
+                            <tr>
+                                <th>입주</th>
+                                <td th:text="${proposal.resident}"></td>
+                                <th>추천</th>
+                                <td th:text="${proposal.recommendation}"></td>
+                            </tr>
+                            <tr>
+                                <th>추가사항</th>
+                                <td colspan="3" th:text="${proposal.note}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>컨설팅 일정 <span class="label label-info" th:text="${proposal.consultant.username}"></span></h3>
+            <div class="panel panel-default">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-nowrap text-center" scope="row">미팅일자</th>
+                        <th class="text-nowrap text-center" scope="row">내용</th>
+                        <th class="text-nowrap text-center" scope="row">등록일자</th>
+                        <th class="text-nowrap text-center" scope="row">등록자명</th>
+                    </tr>
+                    </thead>
+                    <tbody/>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel text-right">
+        <a class="btn btn-default" href="./proposal-list.html" th:href="@{/proposals}" role="link">List</a>
+        <a class="btn btn-primary" href="./editing-proposal.html" th:href="@{/proposals/} + ${proposal.id} + '/rewriting'" role="link">Edit</a>
     </div>
 
     <div class="panel panel-default">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>물건주소</th>
-                <th>물건명칭</th>
-                <th>물건형태</th>
-                <th>물건층수</th>
-                <th>물건넓이</th>
-                <th>물건보증금</th>
-                <th>물건월세</th>
-                <th>물건관리비</th>
-                <th>진행일자</th>
-                <th>상태</th>
-            </tr>
-            </thead>
-            <tbody th:unless="${#lists.isEmpty(proposal.consultings)}">
-            <tr th:each="consulting : ${proposal.consultings}">
-                <td th:text="${consulting.office.building.address.street}">street address</td>
-                <td th:text="${consulting.office.building.name}">name</td>
-                <td th:inline="text">[[${consulting.office.item.type}]] / [[${consulting.office.item.deal}]]</td>
-                <td>
-                    <kbd th:text="${consulting.office.floor.fromValue}"></kbd>
-                    <span th:if="${consulting.office.floor.toValue ne null}"> ~ </span>
-                    <kbd th:if="${consulting.office.floor.toValue ne null}" th:text="${consulting.office.floor.toValue}"></kbd>
-                </td>
-                <td th:text="${consulting.office.area}">area</td>
-                <td th:text="${consulting.office.deposit}">deposit</td>
-                <td th:text="${consulting.office.monthlyRent}">monthlyRent</td>
-                <td th:text="${consulting.office.maintenanceFee}">maintenanceFee</td>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>물건주소</th>
+                    <th>물건명칭</th>
+                    <th>물건형태</th>
+                    <th>물건층수</th>
+                    <th>물건넓이</th>
+                    <th>물건보증금</th>
+                    <th>물건월세</th>
+                    <th>물건관리비</th>
+                    <th>진행일자</th>
+                    <th>상태</th>
+                </tr>
+                </thead>
+                <tbody th:unless="${#lists.isEmpty(proposal.consultings)}">
+                <tr th:each="consulting : ${proposal.consultings}">
+                    <td th:text="${consulting.office.building.address.street}">street address</td>
+                    <td th:text="${consulting.office.building.name}">name</td>
+                    <td th:inline="text">[[${consulting.office.item.typeCd}]] / [[${consulting.office.item.dealCd}]]</td>
+                    <td>
+                        <span class="label label-default" th:text="${consulting.office.targetFloor.fromValue}"></span>
+                        <span th:if="${consulting.office.targetFloor.toValue ne null}"> ~ </span>
+                        <span class="label label-default" th:if="${consulting.office.targetFloor.toValue ne null}" th:text="${consulting.office.targetFloor.toValue}"></span>
+                    </td>
+                    <td th:text="${consulting.office.targetArea}">target area</td>
+                    <td th:text="${consulting.office.deposit}">deposit</td>
+                    <td th:text="${consulting.office.rent}">rent</td>
+                    <td th:text="${consulting.office.maintenanceFee}">maintenanceFee</td>
 
 
-                <td>2017.03.01</td>
-                <td th:text="${consulting.state}">state</td>
-            </tr>
-            </tbody>
-            <tbody th:if="${#lists.isEmpty(proposal.consultings)}">
-            <tr>
-                <td colspan="10">You have no proposals in your proposal list</td>
-            </tr>
-            </tbody>
-        </table>
+                    <td>2017.03.01</td>
+                    <td th:text="${consulting.state}">state</td>
+                </tr>
+                </tbody>
+                <tbody th:if="${#lists.isEmpty(proposal.consultings)}">
+                <tr>
+                    <td colspan="10">You have no proposals in your proposal list</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
-
 
 </body>
 </html>

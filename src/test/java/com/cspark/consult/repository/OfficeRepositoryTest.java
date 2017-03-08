@@ -10,21 +10,24 @@ package com.cspark.consult.repository;
 
 import com.cspark.consult.entity.realty.Building;
 import com.cspark.consult.entity.realty.Office;
-import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.consulting.Proposal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
  * Created by cspark on 2017. 2. 8..
  */
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class OfficeRepositoryTest {
@@ -39,7 +42,7 @@ public class OfficeRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        someOffice = new Office(new Office.Item("사무실", "임대"), new Office.Floor(2, null, "전체"));
+        someOffice = new Office(new Office.Item("사무실", "임대"), new Office.TargetFloor(2, null, "전체"));
 
     }
 
@@ -81,12 +84,12 @@ public class OfficeRepositoryTest {
    @Test
     public void updateOffice() {
        Office before = officeRepository.findOne(1L);
-       before.getItem().setDeal("먜먜");
+       before.getItem().setDealCd("먜먜");
        officeRepository.flush();
 
        Office after = officeRepository.findOne(1L);
 
-       assertThat(after.getItem().getDeal(), is("먜먜"));
+       assertThat(after.getItem().getDealCd(), is("먜먜"));
    }
 
    @Test

@@ -8,6 +8,8 @@
 
 package com.cspark.consult.entity.realty;
 
+import com.cspark.consult.entity.realty.consulting.Proposal;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

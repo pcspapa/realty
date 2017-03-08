@@ -13,6 +13,8 @@ import com.cspark.consult.entity.realty.BuildingContact;
 import com.cspark.consult.entity.realty.Contact;
 import com.cspark.consult.repository.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,6 +49,11 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public List<Building> findAll() {
         return buildingRepository.findAll();
+    }
+
+    @Override
+    public Page<Building> findAll(Pageable pageable) {
+        return buildingRepository.findAll(pageable);
     }
 
     @Override

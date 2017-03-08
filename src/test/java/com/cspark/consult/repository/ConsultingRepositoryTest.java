@@ -10,11 +10,12 @@ package com.cspark.consult.repository;
 
 import com.cspark.consult.entity.realty.Consulting;
 import com.cspark.consult.entity.realty.Office;
-import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.consulting.Proposal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.Matchers.is;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by cspark on 2017. 2. 13..
  */
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ConsultingRepositoryTest {
@@ -45,7 +47,7 @@ public class ConsultingRepositoryTest {
     public void selectConsulting() {
         Consulting consulting = consultingRepository.findOne(new Consulting.Id(1L, 1L));
 
-        assertThat(consulting.getProposal().getItem().getType(), is("사무실"));
-        assertThat(consulting.getOffice().getItem().getType(), is("사무실"));
+        assertThat(consulting.getProposal().getItem().getTypeCd(), is("사무실"));
+        assertThat(consulting.getOffice().getItem().getTypeCd(), is("사무실"));
     }
 }

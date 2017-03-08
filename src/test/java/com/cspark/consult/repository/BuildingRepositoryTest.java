@@ -8,16 +8,17 @@
 
 package com.cspark.consult.repository;
 
-import com.cspark.consult.entity.realty.Address;
 import com.cspark.consult.entity.realty.Building;
 import com.cspark.consult.entity.realty.BuildingContact;
 import com.cspark.consult.entity.realty.Contact;
+import com.cspark.consult.entity.realty.building.Address;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by cspark on 2017. 2. 7..
  */
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class BuildingRepositoryTest {

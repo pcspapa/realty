@@ -11,7 +11,7 @@ package com.cspark.consult.entity;
 import com.cspark.consult.entity.realty.Office;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -21,11 +21,11 @@ public class OfficeTest {
 
     @Test
     public void createOffice() {
-        Office office = new Office(new Office.Item("사무실", "임대"), new Office.Floor(1, null, null));
+        Office office = new Office(new Office.Item("사무실", "임대"), new Office.TargetFloor(1, null, null));
 
-        assertThat(office.getItem().getType(), is("사무실"));
-        assertThat(office.getItem().getDeal(), is("임대"));
-        assertThat(office.getFloor().getFromValue(), is(1));
+        assertThat(office.getItem().getTypeCd(), is("사무실"));
+        assertThat(office.getItem().getDealCd(), is("임대"));
+        assertThat(office.getTargetFloor().getFromValue(), is(1));
     }
 
 }

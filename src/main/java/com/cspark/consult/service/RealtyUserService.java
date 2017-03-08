@@ -8,8 +8,8 @@
 
 package com.cspark.consult.service;
 
-import com.cspark.consult.entity.realty.RealtyAuthority;
-import com.cspark.consult.entity.realty.RealtyUser;
+import com.cspark.consult.entity.realty.user.RealtyAuthority;
+import com.cspark.consult.entity.realty.user.RealtyUser;
 import com.cspark.consult.repository.RealtyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

@@ -8,7 +8,14 @@
 
 package com.cspark.consult.entity.realty;
 
+import com.cspark.consult.entity.CreatedAndUpdatedDateEntityListener;
+import com.cspark.consult.entity.HasCreatedAndUpdatedDate;
+import com.cspark.consult.entity.realty.consulting.Proposal;
+import com.cspark.consult.entity.realty.user.RealtyUser;
+
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,23 +23,30 @@ import java.util.Set;
  * Created by cspark on 2017. 2. 8..
  */
 @Entity
-public class Office {
+@EntityListeners({ CreatedAndUpdatedDateEntityListener.class })
+public class Office implements HasCreatedAndUpdatedDate {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    /**
+     * 건물
+     */
     @ManyToOne(optional = false)
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
 
+    /**
+     * 컨설팅된 제안서.
+     */
     @OneToMany(mappedBy = "office")
     private Set<Consulting> consultings = new HashSet<>();
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "type", column = @Column(name = "ITEM_TYPE")),
-            @AttributeOverride(name = "deal", column = @Column(name = "ITEM_DEAL"))
+            @AttributeOverride(name = "typeCd", column = @Column(name = "ITEM_TYPE_CD")),
+            @AttributeOverride(name = "dealCd", column = @Column(name = "ITEM_DEAL_CD"))
     })
     private Item item;
 
@@ -45,14 +59,17 @@ public class Office {
             @AttributeOverride(name = "toValue", column = @Column(name = "FLOOR_TO")),
             @AttributeOverride(name = "note", column = @Column(name = "FLOOR_NOTE"))
     })
-    private Floor floor;
+    private TargetFloor targetFloor;
 
+    /**
+     * 해당 면적 (target targetArea)
+     */
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "pyeong", column = @Column(name = "area_py")),
-            @AttributeOverride(name = "squareMeter", column = @Column(name = "area_m2"))
+            @AttributeOverride(name = "rental", column = @Column(name = "rental_py")),
+            @AttributeOverride(name = "exclusive", column = @Column(name = "exclusive_py"))
     })
-    private Area area;
+    private TargetArea targetArea;
 
     /**
      * 보증금
@@ -60,14 +77,30 @@ public class Office {
     private Integer deposit;
 
     /**
-     * 월세
+     * 임대료(월세)
      */
-    private Integer monthlyRent;
+    private Integer rent;
 
     /**
      * 관리비
      */
     private Integer maintenanceFee;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "created_username", referencedColumnName = "username")
+    private RealtyUser createdUser;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    private Date createdDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "updated_username", referencedColumnName = "username")
+    private RealtyUser updatedUser;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedDate;
 
     public Office() {
     }
@@ -76,15 +109,15 @@ public class Office {
         this.id = id;
     }
 
-    public Office(Item item, Floor floor) {
+    public Office(Item item, TargetFloor targetFloor) {
         this.item = item;
-        this.floor = floor;
+        this.targetFloor = targetFloor;
     }
 
-    public Office(Long id, Item item, Floor floor) {
+    public Office(Long id, Item item, TargetFloor targetFloor) {
         this.id = id;
         this.item = item;
-        this.floor = floor;
+        this.targetFloor = targetFloor;
     }
 
     public Long getId() {
@@ -123,20 +156,20 @@ public class Office {
         this.item = item;
     }
 
-    public Floor getFloor() {
-        return floor;
+    public TargetFloor getTargetFloor() {
+        return targetFloor;
     }
 
-    public void setFloor(Floor floor) {
-        this.floor = floor;
+    public void setTargetFloor(TargetFloor targetFloor) {
+        this.targetFloor = targetFloor;
     }
 
-    public Area getArea() {
-        return area;
+    public TargetArea getTargetArea() {
+        return targetArea;
     }
 
-    public void setArea(Area area) {
-        this.area = area;
+    public void setTargetArea(TargetArea targetArea) {
+        this.targetArea = targetArea;
     }
 
     public Integer getDeposit() {
@@ -147,12 +180,12 @@ public class Office {
         this.deposit = deposit;
     }
 
-    public Integer getMonthlyRent() {
-        return monthlyRent;
+    public Integer getRent() {
+        return rent;
     }
 
-    public void setMonthlyRent(Integer monthlyRent) {
-        this.monthlyRent = monthlyRent;
+    public void setRent(Integer rent) {
+        this.rent = rent;
     }
 
     public Integer getMaintenanceFee() {
@@ -163,6 +196,42 @@ public class Office {
         this.maintenanceFee = maintenanceFee;
     }
 
+    public RealtyUser getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(RealtyUser createdUser) {
+        this.createdUser = createdUser;
+    }
+
+    @Override
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public RealtyUser getUpdatedUser() {
+        return updatedUser;
+    }
+
+    public void setUpdatedUser(RealtyUser updatedUser) {
+        this.updatedUser = updatedUser;
+    }
+
+    @Override
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Office{");
@@ -171,10 +240,10 @@ public class Office {
             sb.append(", building_id=").append(building.getId());
         sb.append(", consultings=").append(consultings);
         sb.append(", item=").append(item);
-        sb.append(", floor=").append(floor);
-        sb.append(", area=").append(area);
+        sb.append(", targetFloor=").append(targetFloor);
+        sb.append(", targetArea=").append(targetArea);
         sb.append(", deposit=").append(deposit);
-        sb.append(", monthlyRent=").append(monthlyRent);
+        sb.append(", rent=").append(rent);
         sb.append(", maintenanceFee=").append(maintenanceFee);
         sb.append('}');
         return sb.toString();
@@ -183,46 +252,46 @@ public class Office {
     @Embeddable
     public static class Item {
 
-        private String type;
+        private String typeCd;
 
-        private String deal;
+        private String dealCd;
 
         public Item() {
         }
 
-        public Item(String type, String deal) {
-            this.type = type;
-            this.deal = deal;
+        public Item(String typeCd, String dealCd) {
+            this.typeCd = typeCd;
+            this.dealCd = dealCd;
         }
 
-        public String getType() {
-            return type;
+        public String getTypeCd() {
+            return typeCd;
         }
 
-        public void setType(String type) {
-            this.type = type;
+        public void setTypeCd(String typeCd) {
+            this.typeCd = typeCd;
         }
 
-        public String getDeal() {
-            return deal;
+        public String getDealCd() {
+            return dealCd;
         }
 
-        public void setDeal(String deal) {
-            this.deal = deal;
+        public void setDealCd(String dealCd) {
+            this.dealCd = dealCd;
         }
 
         @Override
         public String toString() {
             final StringBuffer sb = new StringBuffer("Item{");
-            sb.append("type='").append(type).append('\'');
-            sb.append(", deal='").append(deal).append('\'');
+            sb.append("type='").append(typeCd).append('\'');
+            sb.append(", dealCd='").append(dealCd).append('\'');
             sb.append('}');
             return sb.toString();
         }
     }
 
     @Embeddable
-    public static class Floor {
+    public static class TargetFloor {
 
         private Integer fromValue;
 
@@ -230,10 +299,10 @@ public class Office {
 
         private String note;
 
-        public Floor() {
+        public TargetFloor() {
         }
 
-        public Floor(Integer fromValue, Integer toValue, String note) {
+        public TargetFloor(Integer fromValue, Integer toValue, String note) {
             this.fromValue = fromValue;
             this.toValue = toValue;
             this.note = note;
@@ -253,10 +322,47 @@ public class Office {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer("Floor{");
+            final StringBuffer sb = new StringBuffer("TargetFloor{");
             sb.append("fromValue=").append(fromValue);
             sb.append(", toValue=").append(toValue);
             sb.append(", note='").append(note).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
+    }
+
+    @Embeddable
+    public static class TargetArea {
+
+        @Digits(integer=10, fraction=2)
+        @Column(precision=12, scale=2, columnDefinition = "DECIMAL(12,2)")
+        private Double rental;
+
+        @Digits(integer=10, fraction=2)
+        @Column(precision=12, scale=2, columnDefinition = "DECIMAL(12,2)")
+        private Double exclusive;
+
+        public Double getRental() {
+            return rental;
+        }
+
+        public void setRental(Double rental) {
+            this.rental = rental;
+        }
+
+        public Double getExclusive() {
+            return exclusive;
+        }
+
+        public void setExclusive(Double exclusive) {
+            this.exclusive = exclusive;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("TargetArea{");
+            sb.append("rental=").append(rental);
+            sb.append(", exclusive=").append(exclusive);
             sb.append('}');
             return sb.toString();
         }

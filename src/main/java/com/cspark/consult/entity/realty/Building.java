@@ -8,7 +8,14 @@
 
 package com.cspark.consult.entity.realty;
 
+import com.cspark.consult.entity.CreatedAndUpdatedDateEntityListener;
+import com.cspark.consult.entity.HasCreatedAndUpdatedDate;
+import com.cspark.consult.entity.realty.building.Address;
+import com.cspark.consult.entity.realty.building.TypicalFloor;
+import com.cspark.consult.entity.realty.user.RealtyUser;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,12 +27,16 @@ import java.util.Set;
 @Table(name = "BUILDING", uniqueConstraints = {
         @UniqueConstraint(name = "UIX_BUILDING_ADDRESS", columnNames = {"address_zipcode", "address_street", "address_city", "address_building_name"})
 })
-public class Building {
+@EntityListeners({ CreatedAndUpdatedDateEntityListener.class })
+public class Building implements HasCreatedAndUpdatedDate {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    /**
+     * 주소
+     */
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "zipcode", column = @Column(name = "ADDRESS_ZIPCODE")),
@@ -35,10 +46,9 @@ public class Building {
     })
     private Address address;
 
-    private Integer basementFloor;
-
-    private Integer groundFloor;
-
+    /**
+     * 빌딩 담당자
+     */
     @ElementCollection
     @CollectionTable(
             name = "BUILDING_CONTACT",
@@ -48,9 +58,52 @@ public class Building {
     @OrderBy("director")
     private Set<BuildingContact> buildingContacts = new HashSet<>();
 
+    /**
+     * 빌딩의 사무실
+     */
     @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Office> offices = new HashSet<>();
 
+    /**
+     * 지하 층수
+     */
+    private Integer basementFloor;
+
+    /**
+     * 지상 층수
+     */
+    private Integer groundFloor;
+
+
+    /**
+     * 관리_기준층 면적 (Typical TargetFloor Area)
+     */
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "rental.pyeong", column = @Column(name = "TYPICAL_FLOOR_RENTAL_AREA_PY")),
+            @AttributeOverride(name = "rental.squareMeter", column = @Column(name = "TYPICAL_FLOOR_RENTAL_AREA_M2")),
+            @AttributeOverride(name = "exclusive.pyeong", column = @Column(name = "TYPICAL_FLOOR_EXCLUSIVE_AREA_PY")),
+            @AttributeOverride(name = "exclusive.squareMeter", column = @Column(name = "TYPICAL_FLOOR_EXCLUSIVE_AREA_M2")),
+            @AttributeOverride(name = "exclusiveRatio", column = @Column(name = "TYPICAL_FLOOR_EXCLUSIVE_RT")),
+            @AttributeOverride(name = "floorHeight", column = @Column(name = "TYPICAL_FLOOR_HEIGHT"))
+    })
+    private TypicalFloor typicalFloor;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "created_username", referencedColumnName = "username")
+    private RealtyUser createdUser;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    private Date createdDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "updated_username", referencedColumnName = "username")
+    private RealtyUser updatedUser;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedDate;
 
     public Building() {
     }
@@ -69,30 +122,6 @@ public class Building {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Integer getBasementFloor() {
-        return basementFloor;
-    }
-
-    public void setBasementFloor(Integer basementFloor) {
-        this.basementFloor = basementFloor;
-    }
-
-    public Integer getGroundFloor() {
-        return groundFloor;
-    }
-
-    public void setGroundFloor(Integer groundFloor) {
-        this.groundFloor = groundFloor;
     }
 
     public Set<BuildingContact> getBuildingContacts() {
@@ -120,6 +149,78 @@ public class Building {
         offices.add(office);
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Integer getBasementFloor() {
+        return basementFloor;
+    }
+
+    public void setBasementFloor(Integer basementFloor) {
+        this.basementFloor = basementFloor;
+    }
+
+    public Integer getGroundFloor() {
+        return groundFloor;
+    }
+
+    public void setGroundFloor(Integer groundFloor) {
+        this.groundFloor = groundFloor;
+    }
+
+    public TypicalFloor getTypicalFloor() {
+        return typicalFloor;
+    }
+
+    public void setTypicalFloor(TypicalFloor typicalFloor) {
+        this.typicalFloor = typicalFloor;
+    }
+
+    public RealtyUser getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(RealtyUser createdUser) {
+        this.createdUser = createdUser;
+    }
+
+    @Override
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public RealtyUser getUpdatedUser() {
+        return updatedUser;
+    }
+
+    public void setUpdatedUser(RealtyUser updatedUser) {
+        this.updatedUser = updatedUser;
+    }
+
+    @Override
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+
+    /**
+     * @return The building name.
+     */
     public String getName() {
         return address.getBuildingName();
     }

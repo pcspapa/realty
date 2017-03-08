@@ -10,7 +10,7 @@ package com.cspark.consult.entity;
 
 import com.cspark.consult.entity.realty.Contact;
 import com.cspark.consult.entity.realty.Office;
-import com.cspark.consult.entity.realty.Proposal;
+import com.cspark.consult.entity.realty.consulting.Proposal;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,7 +25,7 @@ public class ProposalTest {
     public void createProposal() {
         Proposal proposal = new Proposal(new Contact(1L), new Office.Item("사무실", "임대"), new Proposal.Area(50, 100));
 
-        assertThat(proposal.getItem().getType(), is("사무실"));
+        assertThat(proposal.getItem().getTypeCd(), is("사무실"));
     }
 
 }

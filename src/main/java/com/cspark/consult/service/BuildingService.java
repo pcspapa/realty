@@ -9,6 +9,8 @@
 package com.cspark.consult.service;
 
 import com.cspark.consult.entity.realty.Building;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,6 +31,8 @@ public interface BuildingService {
     Building findOne(long id);
 
     List<Building> findAll();
+
+    Page<Building> findAll(Pageable pageable);
 
     @Transactional
     Building rebuild(Building building);

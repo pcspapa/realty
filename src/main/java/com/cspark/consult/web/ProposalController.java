@@ -8,8 +8,8 @@
 
 package com.cspark.consult.web;
 
-import com.cspark.consult.entity.realty.Proposal;
-import com.cspark.consult.entity.realty.RealtyUser;
+import com.cspark.consult.entity.realty.consulting.Proposal;
+import com.cspark.consult.entity.realty.user.RealtyUser;
 import com.cspark.consult.service.ProposalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,18 +35,32 @@ public class ProposalController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProposalController.class);
 
-
     @Autowired
     private ProposalService proposalService;
 
 
+    /**
+     * 제안서 목록 화면을 보여준다.
+     *
+     * @param pageable
+     * @param model
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String proposlas(@PageableDefault Pageable pageable, Model model) {
+    public String proposals(@PageableDefault Pageable pageable, Model model) {
         model.addAttribute("proposals", proposalService.findAll(pageable));
 
         return "consulting/proposal-list";
     }
 
+    /**
+     * 제안서 등록 화면을 보여준다.
+     *
+     * @param realtyUser
+     * @param proposal
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/writing", method = RequestMethod.GET)
     public String writing(RealtyUser realtyUser, Proposal proposal, Model model) {
         proposal.setConsultant(realtyUser);
@@ -55,8 +69,16 @@ public class ProposalController {
         return "consulting/writing-proposal";
     }
 
+    /**
+     * 제안서를 등록한다.
+     *
+     * @param realtyUser
+     * @param proposal
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public String build(RealtyUser realtyUser, @ModelAttribute @Valid Proposal proposal, BindingResult bindingResult) {
+    public String write(RealtyUser realtyUser, @ModelAttribute @Valid Proposal proposal, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             logger.warn("{}", bindingResult.getAllErrors());
             return "consulting/writing-proposal";
@@ -68,10 +90,51 @@ public class ProposalController {
         return "redirect:/proposals";
     }
 
-    @RequestMapping(value = "/{id}")
+    /**
+     * 선택된 제안서 상세 화면을 보여준다.
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String proposal(@PathVariable long id, Model model) {
         model.addAttribute("proposal", proposalService.findOne(id));
 
         return "consulting/reading-proposal";
+    }
+
+    /**
+     * 선택된 제안서 수정 화면을 보여준다.
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/{id}/rewriting", method = RequestMethod.GET)
+    public String rewriting(@PathVariable long id, Model model) {
+        model.addAttribute("proposal", proposalService.findOne(id));
+
+        return "consulting/rewriting-proposal";
+    }
+
+    /**
+     * 제안서를 수정한다.
+     *
+     * @param realtyUser
+     * @param proposal
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public String rewrite(RealtyUser realtyUser, @ModelAttribute @Valid Proposal proposal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            logger.warn("{}", bindingResult.getAllErrors());
+            return "consulting/rewriting-proposal";
+        }
+        proposal.setUpdatedUser(realtyUser);
+        proposalService.edit(proposal);
+
+        return "redirect:/proposals";
     }
 }

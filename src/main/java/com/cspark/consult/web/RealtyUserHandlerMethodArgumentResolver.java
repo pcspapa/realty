@@ -8,7 +8,7 @@
 
 package com.cspark.consult.web;
 
-import com.cspark.consult.entity.realty.RealtyUser;
+import com.cspark.consult.entity.realty.user.RealtyUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.support.WebDataBinderFactory;

@@ -12,7 +12,8 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <name>Business Consulting :: Writing Proposal</name>
+    <name>Business Consulting :: Rewriting Proposal</name>
+    <title>Business Consulting :: Rewriting Proposal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="./static/realty.css" th:href="@{/css/realty.css}"/>
 
@@ -57,10 +58,10 @@
 
 <div class="container-fluid">
     <div class="page-header">
-        <h1>의뢰서 작성</h1>
+        <h1>의뢰서 수정</h1>
     </div>
 
-    <div th:replace="consulting/proposal :: form (@{/proposals}, 'post', 'Add')"></div>
+    <div th:replace="consulting/proposal :: form (@{/proposals}, 'put', 'Edit')"></div>
 </div>
 
 <!-- Modal for Address -->

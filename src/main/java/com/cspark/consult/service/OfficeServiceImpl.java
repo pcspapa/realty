@@ -12,6 +12,8 @@ import com.cspark.consult.entity.realty.Building;
 import com.cspark.consult.entity.realty.Office;
 import com.cspark.consult.repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,11 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public List<Office> findAll() {
         return officeRepository.findAll();
+    }
+
+    @Override
+    public Page<Office> findAll(Pageable pageable) {
+        return officeRepository.findAll(pageable);
     }
 
     @Override

@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.cspark.consult.entity.realty;
+package com.cspark.consult.entity.realty.building;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;
