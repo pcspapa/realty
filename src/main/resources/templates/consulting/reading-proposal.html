@@ -52,7 +52,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#client">Contact</a></li>
+                <li><a href="#client" th:href="@{/contacts}">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -68,27 +68,44 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>의뢰인</h3>
+                    <h3>의뢰인  <span class="label label-info" th:text="${proposal.state}"></span></h3>
                     <div class="panel panel-default">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
+                                <tr class="">
                                     <th class="text-nowrap text-center" scope="row">요청일자</th>
                                     <th class="text-nowrap text-center" scope="row">요청기업</th>
                                     <th class="text-nowrap text-center" scope="row">요청자</th>
-                                    <th class="text-nowrap text-center" scope="row">의뢰형태</th>
-                                    <th class="text-nowrap text-center" scope="row">의뢰평수</th>
-                                    <th class="text-nowrap text-center" scope="row">담당자</th>
-                                    <th class="text-nowrap text-center" scope="row">상태</th>
+                                    <th class="text-nowrap text-center hidden-xs" scope="row">의뢰형태</th>
+                                    <th class="text-nowrap text-center hidden-xs" scope="row">의뢰평수</th>
+                                    <th class="text-nowrap text-center hidden-xs" scope="row">담당자</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
 
                                     <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
-                                    <td th:text="${proposal.client.company}"></td>
-                                    <td th:text="${proposal.client.name}"></td>
+                                    <td th:text="${proposal.client.companyName}"></td>
+                                    <td th:text="${proposal.client.fullname}"></td>
+                                    <td class="hidden-xs">
+                                        <span th:text="${proposal.item?.typeCd}">사무실</span>
+                                        <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
+                                        <span th:text="${proposal.item?.dealCd}">임대</span>
+                                    </td>
+                                    <td class="hidden-xs">
+                                        <span th:text="${proposal.area?.fromValue}">100</span>
+                                        <span th:text="${proposal.area ne null} ? ' ~ ' : ''">~</span>
+                                        <span th:text="${proposal.area?.toValue}">200</span>
+                                    </td>
+                                    <td class="hidden-xs" th:text="${proposal.client.mobileNo}">mobile</td>
+                                </tr>
+                                <tr class="visible-xs">
+                                    <th class="text-nowrap text-center" scope="row">의뢰형태</th>
+                                    <th class="text-nowrap text-center" scope="row">의뢰평수</th>
+                                    <th class="text-nowrap text-center" scope="row">담당자</th>
+                                </tr>
+                                <tr class="visible-xs">
                                     <td>
                                         <span th:text="${proposal.item?.typeCd}">사무실</span>
                                         <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
@@ -99,8 +116,7 @@
                                         <span th:text="${proposal.area ne null} ? ' ~ ' : ''">~</span>
                                         <span th:text="${proposal.area?.toValue}">200</span>
                                     </td>
-                                    <td th:text="${proposal.client.mobile}">mobile</td>
-                                    <td th:text="${proposal.state}">state</td>
+                                    <td th:text="${proposal.client.mobileNo}">mobile</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -183,14 +199,27 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <a class="btn btn-default" href="./proposal-list.html" th:href="@{/proposals}" role="link">List</a>
+                        <a class="btn btn-primary" href="./editing-proposal.html" th:href="@{/proposals/} + ${proposal.id} + '/rewriting'" role="link">Edit</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
-            <h3>컨설팅 일정 <span class="label label-info" th:text="${proposal.consultant.username}"></span></h3>
+            <h3>
+                컨설팅 일정 <span class="label label-info" th:text="${proposal.consultant.username}"></span>
+                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addScheduleModal">
+                    Add Schedule
+                </button>
+            </h3>
             <div class="panel panel-default">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-nowrap text-center" scope="row">미팅일자</th>
+                        <th class="text-nowrap text-center" scope="row">일자</th>
                         <th class="text-nowrap text-center" scope="row">내용</th>
                         <th class="text-nowrap text-center" scope="row">등록일자</th>
                         <th class="text-nowrap text-center" scope="row">등록자명</th>
@@ -202,57 +231,79 @@
         </div>
     </div>
 
-    <div class="panel text-right">
-        <a class="btn btn-default" href="./proposal-list.html" th:href="@{/proposals}" role="link">List</a>
-        <a class="btn btn-primary" href="./editing-proposal.html" th:href="@{/proposals/} + ${proposal.id} + '/rewriting'" role="link">Edit</a>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>물건주소</th>
-                    <th>물건명칭</th>
-                    <th>물건형태</th>
-                    <th>물건층수</th>
-                    <th>물건넓이</th>
-                    <th>물건보증금</th>
-                    <th>물건월세</th>
-                    <th>물건관리비</th>
-                    <th>진행일자</th>
-                    <th>상태</th>
-                </tr>
-                </thead>
-                <tbody th:unless="${#lists.isEmpty(proposal.consultings)}">
-                <tr th:each="consulting : ${proposal.consultings}">
-                    <td th:text="${consulting.office.building.address.street}">street address</td>
-                    <td th:text="${consulting.office.building.name}">name</td>
-                    <td th:inline="text">[[${consulting.office.item.typeCd}]] / [[${consulting.office.item.dealCd}]]</td>
-                    <td>
-                        <span class="label label-default" th:text="${consulting.office.targetFloor.fromValue}"></span>
-                        <span th:if="${consulting.office.targetFloor.toValue ne null}"> ~ </span>
-                        <span class="label label-default" th:if="${consulting.office.targetFloor.toValue ne null}" th:text="${consulting.office.targetFloor.toValue}"></span>
-                    </td>
-                    <td th:text="${consulting.office.targetArea}">target area</td>
-                    <td th:text="${consulting.office.deposit}">deposit</td>
-                    <td th:text="${consulting.office.rent}">rent</td>
-                    <td th:text="${consulting.office.maintenanceFee}">maintenanceFee</td>
-
-
-                    <td>2017.03.01</td>
-                    <td th:text="${consulting.state}">state</td>
-                </tr>
-                </tbody>
-                <tbody th:if="${#lists.isEmpty(proposal.consultings)}">
-                <tr>
-                    <td colspan="10">You have no proposals in your proposal list</td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>물건진행현황</h3>
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>물건주소</th>
+                            <th>물건명칭</th>
+                            <th>물건형태</th>
+                            <th>물건층수</th>
+                            <th>물건넓이</th>
+                            <th>물건보증금</th>
+                            <th>물건월세</th>
+                            <th>물건관리비</th>
+                            <th>진행일자</th>
+                            <th>상태</th>
+                        </tr>
+                        </thead>
+                        <tbody th:unless="${#lists.isEmpty(proposal.consultings)}">
+                        <tr th:each="consulting : ${proposal.consultings}">
+                            <td th:text="${consulting.office.building.address.street}">street address</td>
+                            <td th:text="${consulting.office.building.name}">name</td>
+                            <td th:inline="text">[[${consulting.office.item.typeCd}]] / [[${consulting.office.item.dealCd}]]</td>
+                            <td>
+                                <span class="label label-default" th:text="${consulting.office.targetFloor.fromValue}"></span>
+                                <span th:if="${consulting.office.targetFloor.toValue ne null}"> ~ </span>
+                                <span class="label label-default" th:if="${consulting.office.targetFloor.toValue ne null}" th:text="${consulting.office.targetFloor.toValue}"></span>
+                            </td>
+                            <td th:text="${consulting.office.targetArea}">target area</td>
+                            <td th:text="${consulting.office.deposit}">deposit</td>
+                            <td th:text="${consulting.office.rent}">rent</td>
+                            <td th:text="${consulting.office.maintenanceFee}">maintenanceFee</td>
+                            <td>2017.03.01</td>
+                            <td th:text="${consulting.state}">state</td>
+                        </tr>
+                        </tbody>
+                        <tbody th:if="${#lists.isEmpty(proposal.consultings)}">
+                        <tr>
+                            <td colspan="10">You have no proposals in your proposal list</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
+</div>
+
+<div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addScheduleModalLabel">Writing Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <dl class="form-group ">
+                        <dd>
+                            <textarea class="form-control" rows="5"></textarea>
+                            <p class="js-note-limit-warning d-none mt-3 mb-0 text-center"></p>
+                        </dd>
+                    </dl>
+                    <p>
+                        <button type="submit" class="btn btn-primary btn-block">Add to Schedules</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

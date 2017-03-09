@@ -20,13 +20,13 @@ import java.util.List;
 public interface ContactService {
 
     @Transactional
-    void contact(Contact contact);
+    Contact contact(Contact contact);
 
     Contact findOne(long id);
 
     List<Contact> findAll();
 
-
+    @Transactional
     Contact recontact(Contact contact);
 
 }

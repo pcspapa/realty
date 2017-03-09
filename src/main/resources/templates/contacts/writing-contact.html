@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  ~ Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
   ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
   ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
@@ -12,15 +12,17 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <name>Business Consulting :: Login</name>
-    <title>Business Consulting :: Login</title>
+    <name>Business Consulting :: Writing Contact</name>
+    <title>Business Consulting :: Writing Contact</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="../static/css/realty.css" th:href="@{/css/realty.css}"/>
 
     <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
     <script type="text/javascript">
-        $(document).ready(function() {});
+        $(document).ready(function() {
+
+        });
     </script>
 </head>
 
@@ -50,42 +52,19 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#client" th:href="@{/contacts}">Contact</a></li>
+                <li class="active"><a href="#client" th:href="@{/contacts}">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-<div class="container-fluid realty">
+<div class="container-fluid">
 
-    <div id="page-login" class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <div class="text-right">
-                <a href="page_register.html" class="txt-default">Need an account?</a>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form th:action="@{/login}" method="post">
-                        <div class="text-center">
-                            <h3 class="page-header">Realty Login Page</h3>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Username</label>
-                            <input type="text" class="form-control" name="username" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Password</label>
-                            <input type="password" class="form-control" name="password" />
-                        </div>
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="page-header">
+        <h1>연락처 등록</h1>
     </div>
 
+    <div th:replace="contacts/contact :: form (@{/contacts}, 'post', 'Add')"></div>
 </div>
 
 

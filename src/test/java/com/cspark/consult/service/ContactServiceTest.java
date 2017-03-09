@@ -16,11 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by cspark on 2017. 2. 8..
@@ -42,7 +41,7 @@ public class ContactServiceTest {
     public void findContact() {
         Contact contact = contactService.findOne(1L);
 
-        assertThat(contact.getCompany(), is("google"));
+        assertThat(contact.getCompanyName(), is("google"));
     }
 
     @Test
@@ -55,10 +54,10 @@ public class ContactServiceTest {
     @Test
     public void recontact() {
         Contact before = contactService.findOne(1L);
-        before.setCompany("gooogle");
+        before.setCompanyName("gooogle");
 
         Contact after = contactService.recontact(before);
 
-        assertThat(after.getCompany(), is("gooogle"));
+        assertThat(after.getCompanyName(), is("gooogle"));
     }
 }

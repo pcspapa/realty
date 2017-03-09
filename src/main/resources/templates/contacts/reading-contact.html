@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <name>Business Consulting :: Writing Contact</name>
+    <title>Business Consulting :: Writing Contact</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/realty.css" th:href="@{/css/realty.css}"/>
+
+    <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+    </script>
+</head>
+
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" th:href="@{/proposals/}">Proposal</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Product <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" th:href="@{/product/buildings}">Building</a></li>
+                        <li><a href="#" th:href="@{/product/offices}">Office</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#client" th:href="@{/contacts}">Contact</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="page-header">
+        <h1>연락처 상세</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <address th:inline="text">
+                        <h4 th:inline="text">
+                            [[${contact.fullname}]]
+                            <small th:text="${contact.position}"></small>
+                            <small th:text="${contact.deptName}"></small>
+                        </h4>
+                        <ul class="list-unstyled">
+                            <li th:inline="text"><span title="Mobile" class="glyphicon glyphicon-phone-alt"></span> [[${contact.mobileNo}]]</li>
+                            <li th:inline="text"><span title="Email" class="glyphicon glyphicon-print"></span> [[${contact.email}]]</li>
+                        </ul>
+                    </address>
+                    <hr/>
+                    <address th:inline="text">
+                        <h4 th:inline="text">
+                            [[${contact.companyName}]]
+                            <small th:text="${contact.typeOfEnterprise}"></small>
+                            <small th:text="${contact.typeOfIndustry}"></small>
+                        </h4>
+                        [[${contact.address}]]
+                        <ul class="list-unstyled">
+                            <li th:inline="text"><span title="Phone" class="glyphicon glyphicon-phone-alt"></span> [[${contact.phoneNo}]]</li>
+                            <li th:inline="text"><span title="Fax" class="glyphicon glyphicon-print"></span> [[${contact.faxNo}]]</li>
+                        </ul>
+                    </address>
+                    <hr/>
+                    <p th:text="${contact.note}"></p>
+                </div>
+            </div>
+            <p class="text-right">
+                <a class="btn btn-default" href="./contact-list.html" th:href="@{/contacts}" role="button">List</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
+            </p>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Seller</div>
+                <div class="panel-body">
+                    <p>Salse items.</p>
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>No.</td>
+                        <td>Name</td>
+                        <td>Address</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>XXX사무실</td>
+                        <td>서울시 강남구 역삼</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>XXX사무실</td>
+                        <td>서울시 강남구 역삼</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>XXX사무실</td>
+                        <td>서울시 강남구 역삼</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>XXX사무실</td>
+                        <td>서울시 강남구 역삼</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>XXX사무실</td>
+                        <td>서울시 강남구 역삼</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Buyer</div>
+                <div class="panel-body">
+                    <p>Consulting list</p>
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>No.</td>
+                        <td>Date</td>
+                        <td>Office</td>
+                        <td>Area</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2016.12.25</td>
+                        <td>사무실/임대</td>
+                        <td>145~150</td>
+                        <td>Ing...</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2016.12.25</td>
+                        <td>사무실/임대</td>
+                        <td>145~150</td>
+                        <td>Ing...</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2016.12.25</td>
+                        <td>사무실/임대</td>
+                        <td>145~150</td>
+                        <td>Ing...</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2016.12.25</td>
+                        <td>사무실/임대</td>
+                        <td>145~150</td>
+                        <td>Ing...</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2016.12.25</td>
+                        <td>사무실/임대</td>
+                        <td>145~150</td>
+                        <td>Ing...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit a Contact</h4>
+            </div>
+            <div class="modal-body">
+                <div th:replace="contacts/contact :: form (@{/contacts/} + ${contact.id}, 'put', 'Edit')"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

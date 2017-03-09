@@ -59,7 +59,7 @@ public class ProposalRepositoryTest {
 
         assertThat(proposal.getItem().getTypeCd(), is("사무실"));
         assertThat(proposal.getItem().getDealCd(), is("임대"));
-        assertThat(proposal.getClient().getCompany(), is("google"));
+        assertThat(proposal.getClient().getCompanyName(), is("google"));
         assertThat(proposal.getConsultings().size(), is(3));
     }
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  ~ Copyright (c) 2016. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
   ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
   ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
@@ -12,15 +12,29 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <name>Business Consulting :: Login</name>
-    <title>Business Consulting :: Login</title>
+    <name>Business Consulting :: Contact List</name>
+    <title>Business Consulting :: Contact List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="../static/css/realty.css" th:href="@{/css/realty.css}"/>
 
     <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
     <script type="text/javascript">
-        $(document).ready(function() {});
+        $(document).ready(function() {
+
+            // click event for .table > tbody > tr
+            $('.table tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('active') ) {
+                    $(this).removeClass('active');
+                }
+                else {
+                    $('.table tr.active').removeClass('active');
+                    $(this).addClass('active');
+                }
+                $(location).attr('href', $(this).data("url") + $(this).data("id"));
+            } );
+
+        });
     </script>
 </head>
 
@@ -50,41 +64,51 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#client" th:href="@{/contacts}">Contact</a></li>
+                <li class="active"><a href="#client" th:href="@{/contacts}">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-<div class="container-fluid realty">
+<div class="container-fluid">
 
-    <div id="page-login" class="row">
-        <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <div class="text-right">
-                <a href="page_register.html" class="txt-default">Need an account?</a>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form th:action="@{/login}" method="post">
-                        <div class="text-center">
-                            <h3 class="page-header">Realty Login Page</h3>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Username</label>
-                            <input type="text" class="form-control" name="username" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Password</label>
-                            <input type="password" class="form-control" name="password" />
-                        </div>
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="page-header">
+        <h1>연락처 목록</h1>
     </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>mobile</th>
+                    <th>phone</th>
+                    <th>fax</th>
+                    <th>email</th>
+                    <th>company</th>
+                </tr>
+            </thead>
+            <tbody th:unless="${#lists.isEmpty(contacts)}">
+                <tr th:each="contact : ${contacts}" th:attr="data-id=${contact.id},data-url=@{/contacts/}">
+                    <td th:text="${contact.fullname}">full name</td>
+                    <td th:text="${contact.mobileNo}">mobile number</td>
+                    <td th:text="${contact.phoneNo}">phone number</td>
+                    <td th:text="${contact.faxNo}">fax number</td>
+                    <td th:text="${contact.email}">email</td>
+                    <td th:text="${contact.companyName}">company</td>
+                </tr>
+            </tbody>
+            <tbody th:if="${#lists.isEmpty(contacts)}">
+                <tr>
+                    <td colspan="6">You have no contacts in your contact list</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="text-right">
+        <a class="btn btn-primary" href="./writing-client.html" th:href="@{/contacts/uniting}" role="button">New</a>
+    </p>
 
 </div>
 

@@ -27,6 +27,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 /**
+ * RESTFul API
+ *   - list      : get  : /proposals
+ *   - add form  : get  : /proposals/writing
+ *   - add       : post : /proposals
+ *   - view      : get  : /proposals/{id}
+ *   - edit form : get  : /proposals/{id}/rewriting
+ *   - edit      : put  : /proposals
+ *
  * Created by cspark on 2017. 2. 13..
  */
 @Controller
@@ -119,7 +127,7 @@ public class ProposalController {
     }
 
     /**
-     * 제안서를 수정한다.
+     * 선택된 제안서를 수정한다.
      *
      * @param realtyUser
      * @param proposal

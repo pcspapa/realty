@@ -57,7 +57,7 @@ public class ContactRepositoryTest {
     public void findContact() {
         Contact contact = contactRepository.findOne(1L);
 
-        assertThat(contact.getCompany(), is("google"));
+        assertThat(contact.getCompanyName(), is("google"));
     }
 
     @Test
@@ -70,11 +70,11 @@ public class ContactRepositoryTest {
     @Test
     public void updateContact() {
         Contact before = contactRepository.findOne(1L);
-        before.setCompany("gooogle");
+        before.setCompanyName("gooogle");
 
         Contact after = contactRepository.findOne(1L);
 
-        assertThat(after.getCompany(), is("gooogle"));
+        assertThat(after.getCompanyName(), is("gooogle"));
     }
 
     @Test

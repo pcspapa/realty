@@ -24,9 +24,10 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
+
     @Override
-    public void contact(Contact contact) {
-        contactRepository.save(contact);
+    public Contact contact(Contact contact) {
+        return contactRepository.save(contact);
     }
 
     @Override

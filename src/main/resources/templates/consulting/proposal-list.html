@@ -25,6 +25,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+
             // click event for .table > tbody > tr
             $('.table tbody').on( 'click', 'tr', function () {
                 if ( $(this).hasClass('active') ) {
@@ -67,7 +68,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#client">Contact</a></li>
+                <li><a href="#client" th:href="@{/contacts}">Contact</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -95,8 +96,8 @@
             <tbody th:unless="${#lists.isEmpty(proposals)}">
             <tr th:each="proposal : ${proposals}" th:attr="data-id=${proposal.id},data-url=@{/proposals/}">
                 <td th:text="${#calendars.format(proposal.createdDate,'yyyy.MM.dd')}">2017.03.01</td>
-                <td th:text="${proposal.client.company}">company name</td>
-                <td th:text="${proposal.client.name}">person name</td>
+                <td th:text="${proposal.client.companyName}">company name</td>
+                <td th:text="${proposal.client.fullname}">person name</td>
                 <td>
                     <span th:text="${proposal.item?.typeCd}">사무실</span>
                     <span th:text="${proposal.item ne null} ? ' / ' : ''">~</span>
